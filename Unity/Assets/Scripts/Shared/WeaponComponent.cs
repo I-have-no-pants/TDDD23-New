@@ -27,6 +27,7 @@ public class WeaponComponent : MonoBehaviour {
 	// Overwrite this if we want projectile or something
 	protected void Shoot() {
 		target.GetComponent<HealthComponent>().Health-=Damage;
+		Debug.Log("Pew'd " + target.name);
 	}
 	
 	protected bool ShouldShoot() {
@@ -36,6 +37,7 @@ public class WeaponComponent : MonoBehaviour {
 		
 		if (target.GetComponent<HealthComponent>() == null || target.GetComponent<HealthComponent>().IsDead){			
 			target = null;
+			Debug.Log(name + " has new target: " + target.name);
 			return false;
 		}
 		return true;
@@ -47,13 +49,15 @@ public class WeaponComponent : MonoBehaviour {
 			// Add check for if other is a better target (prefer armored units, etc)
 			if (other.tag == EnemyTeam && target == null && other.gameObject.GetComponent<HealthComponent>() != null && !other.gameObject.GetComponent<HealthComponent>().IsDead) {
 				target = other.gameObject;
+				Debug.Log(name + " has new target: " + target.name);
 			}
 		}
 	}
 	
 	void OnTriggerExit(Collider other) {
-		if (other.gameObject == target && !other.isTrigger)
+		if (other.gameObject == target && !other.isTrigger) {
+			Debug.Log(name + " has new target: " + target.name);
 			target = null;
+		}
 	}
-		
 }

@@ -20,7 +20,7 @@ public abstract  class HealthComponent : MonoBehaviour {
 				OnDamage (value);
 			
 			health =value;
-			if (health < 0) {
+			if (health <= 0) {
 				IsDead=true;
 				OnDeath ();
 			}

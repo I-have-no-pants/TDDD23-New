@@ -3,7 +3,10 @@ using System.Collections;
 
 public class UnitMoveScript : MonoBehaviour {
 	
+	// Moves towards Target in a retarded way, replace this way with pathfinding or something else.
 	public GameObject Target;
+	
+	public float Speed = 1;
 	
 	private CharacterController controller;
 
@@ -14,7 +17,9 @@ public class UnitMoveScript : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		controller.SimpleMove(new Vector3(1,0,0));
+		if (Target)
+		controller.SimpleMove((Target.transform.position - transform.position).normalized * Speed);
+		transform.Rotate(0,1,0);
 	
 	}
 }
