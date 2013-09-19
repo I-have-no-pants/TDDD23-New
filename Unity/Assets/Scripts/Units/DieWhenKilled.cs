@@ -8,6 +8,6 @@ public class DieWhenKilled : HealthComponent {
 		Destroy(this.gameObject);
 	}
 	
-	protected override void OnDamage (int damage)
-	{}
+	protected override void OnDamage (int damage) {
+	}
 }
