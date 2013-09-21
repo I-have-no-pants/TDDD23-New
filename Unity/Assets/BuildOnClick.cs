@@ -8,13 +8,7 @@ public class BuildOnClick : ClickComponent {
 	
 	
 	public override void OnClick() {
-		Debug.Log ("upgraded "+name);
 		
-		GameObject addon = Instantiate(Upgrade,transform.position,transform.rotation) as GameObject;
-		addon.transform.parent = this.transform.parent;
-		
-		
-		Destroy(this.gameObject);
 		
 	}
 	

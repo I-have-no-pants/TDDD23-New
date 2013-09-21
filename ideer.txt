@@ -1,0 +1,8 @@
+Income: 
+ - Döda enheter
+ - Bygg inkomst-addons
+
+Spawn:
+ - Click to spawn?
+ - Combo to spawn (DDR)
+

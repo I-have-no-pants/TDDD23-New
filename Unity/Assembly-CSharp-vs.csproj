@@ -58,6 +58,9 @@
      <Compile Include="Assets\Scripts\Shared\WeaponComponent.cs" />
      <Compile Include="Assets\Scripts\Units\DieWhenKilled.cs" />
      <Compile Include="Assets\Scripts\Units\UnitMoveScript.cs" />
+     <Compile Include="Assets\UpgradeGUIElement.cs" />
+     <Compile Include="Assets\UpgradeableComponent.cs" />
+     <Compile Include="Assets\Upgrademenu.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

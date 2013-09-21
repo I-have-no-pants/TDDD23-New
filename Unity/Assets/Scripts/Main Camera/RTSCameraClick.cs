@@ -7,6 +7,8 @@ using System.Collections;
 public class RTSCameraClick : MonoBehaviour
 {
 	private bool click = false;
+	
+	public GameObject UpgradeMenu;
 		
 	// Update is called once per frame
 	void Update ()
@@ -22,6 +24,11 @@ public class RTSCameraClick : MonoBehaviour
 						var clickComp = hit.transform.GetComponent<ClickComponent>();
 						if (clickComp != null)
 							clickComp.OnClick();
+						
+						var upgradeComp = hit.transform.GetComponent<UpgradeableComponent>();
+						if (upgradeComp != null)
+							UpgradeMenu.GetComponent<Upgrademenu>().Target = upgradeComp.gameObject;
+						
 					}
 				}
 			}
