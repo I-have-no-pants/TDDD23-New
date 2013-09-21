@@ -26,8 +26,18 @@ public class FactoryComponent : MonoBehaviour, TeamComponent {
 	public void Spawn() {
 		Debug.Log(""+name + " spawns a " + BaseSpawn.name);
 		GameObject spawn = Instantiate(BaseSpawn,spawnPosition,Quaternion.identity) as GameObject;
-		GetComponent<AddonComponent>().Decorate(spawn);
 		
+		// Instanciate childrens...
+		int i = 0;
+		foreach (Transform child in transform) {
+			var comp = child.GetComponent<AddonComponent>();
+			if (comp != null) {
+				Transform pos = spawn.transform.FindChild("Addon"+i);
+				Debug.Log("Decorating at " + pos);
+				comp.Decorate(spawn, pos);
+				i++;
+			}
+		}
 		
 	}
 }

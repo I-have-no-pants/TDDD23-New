@@ -15,14 +15,20 @@ public class AddonComponent : MonoBehaviour {
 	
 	public GameObject MyAddon;
 	
-	public void Decorate(GameObject obj) {
-		GameObject addon = Instantiate(MyAddon,transform.position,transform.rotation) as GameObject;
+	public void Decorate(GameObject obj, Transform position) {
+		GameObject addon = Instantiate(MyAddon,position.position,position.rotation) as GameObject;
 		
 		// Instanciate childrens...
+		int i = 0;
 		foreach (Transform child in transform) {
 			var comp = child.GetComponent<AddonComponent>();
-			if (comp != null)
-				comp.Decorate(addon);
+			if (comp != null) {
+				Transform pos = addon.transform.FindChild("Addon"+i);
+				Debug.Log("Decorating at " + pos);
+				comp.Decorate(addon, pos);
+				i++;
+			}
+			
 		}
 		
 		addon.transform.parent = obj.transform;
