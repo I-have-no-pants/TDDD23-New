@@ -24,7 +24,7 @@ public class Upgrademenu : MonoBehaviour {
 			
 			target = value;
 			
-		}
+		} 
 	}
 	
 	private void BuildMenu() {
