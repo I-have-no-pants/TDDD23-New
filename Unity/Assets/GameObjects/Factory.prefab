@@ -67,6 +67,7 @@ GameObject:
   - 114: {fileID: 11400008}
   - 114: {fileID: 11400010}
   - 65: {fileID: 6500004}
+  - 114: {fileID: 11400012}
   m_Layer: 0
   m_Name: Factory
   m_TagString: Untagged
@@ -438,6 +439,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MyAddon: {fileID: 0}
+--- !u!114 &11400012
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 100006}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75be3bac7bfd56e4887a8f8c95b090b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Size: 5
+  Cost: 0
+  Name: Factory
+  Description: Spawn units
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

@@ -42,6 +42,9 @@ public class Upgrademenu : MonoBehaviour {
 			
 			newElement.transform.parent = this.transform;
 			
+			newElement.transform.FindChild("Name").guiText.text = g.GetComponent<Buildable>().Name;
+			newElement.transform.FindChild("Description").guiText.text = g.GetComponent<Buildable>().Description;
+			
 			newElement.SetActive(true);
 			start -=0.1f;
 		}
