@@ -44,14 +44,16 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\BuildOnClick.cs" />
-     <Compile Include="Assets\PlayerComponent.cs" />
      <Compile Include="Assets\Scripts\AddonComponent.cs" />
      <Compile Include="Assets\Scripts\Debug\MessageOnClick.cs" />
      <Compile Include="Assets\Scripts\Debug\SpawnOnClick.cs" />
      <Compile Include="Assets\Scripts\FactoryComponent.cs" />
-     <Compile Include="Assets\Scripts\Main Camera\RTSCameraClick.cs" />
-     <Compile Include="Assets\Scripts\Main Camera\RTSCameraMovement.cs" />
+     <Compile Include="Assets\Scripts\Player\PlayerComponent.cs" />
+     <Compile Include="Assets\Scripts\Player\RTSCameraClick.cs" />
+     <Compile Include="Assets\Scripts\Player\RTSCameraMovement.cs" />
+     <Compile Include="Assets\Scripts\Player\UpgradeGUIElement.cs" />
+     <Compile Include="Assets\Scripts\Player\UpgradeableComponent.cs" />
+     <Compile Include="Assets\Scripts\Player\Upgrademenu.cs" />
      <Compile Include="Assets\Scripts\Shared\AttachmentComponent.cs" />
      <Compile Include="Assets\Scripts\Shared\ClickComponent.cs" />
      <Compile Include="Assets\Scripts\Shared\HealthComponent.cs" />
@@ -59,9 +61,6 @@
      <Compile Include="Assets\Scripts\Shared\WeaponComponent.cs" />
      <Compile Include="Assets\Scripts\Units\DieWhenKilled.cs" />
      <Compile Include="Assets\Scripts\Units\UnitMoveScript.cs" />
-     <Compile Include="Assets\UpgradeGUIElement.cs" />
-     <Compile Include="Assets\UpgradeableComponent.cs" />
-     <Compile Include="Assets\Upgrademenu.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
