@@ -18,7 +18,11 @@ public class RTSCameraClick : MonoBehaviour
 				click = true;
 				Ray ray = Camera.main.ScreenPointToRay (Input.mousePosition);
 				RaycastHit hit;
+				
 				Debug.Log ("Clicked");
+				
+				UpgradeMenu.GetComponent<Upgrademenu>().Target = null;
+				
 				if (Physics.Raycast (ray, out hit)) {
 					if (hit.transform != null) {
 						var clickComp = hit.transform.GetComponent<ClickComponent>();

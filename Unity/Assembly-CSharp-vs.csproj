@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\BuildOnClick.cs" />
+     <Compile Include="Assets\PlayerComponent.cs" />
      <Compile Include="Assets\Scripts\AddonComponent.cs" />
      <Compile Include="Assets\Scripts\Debug\MessageOnClick.cs" />
      <Compile Include="Assets\Scripts\Debug\SpawnOnClick.cs" />
