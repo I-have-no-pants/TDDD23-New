@@ -8,6 +8,9 @@ public class Upgrademenu : MonoBehaviour {
 	
 	public GameObject BuildingMenuElement;
 	
+	private int maxSize;
+	private bool ExactSize;
+	
 	private GameObject target;
 	public GameObject Target {
 		get {
@@ -19,8 +22,12 @@ public class Upgrademenu : MonoBehaviour {
 			else if (target == null && value != null)
 				gameObject.SetActive(true);
 			
-			if (target != value && value != null)
+			if (target != value && value != null) {
+				maxSize = value.GetComponent<UpgradeableComponent>().maxSize;
+				ExactSize = value.GetComponent<UpgradeableComponent>().ExactSize;
 				BuildMenu();
+					
+			}
 			
 			target = value;
 			
@@ -34,30 +41,22 @@ public class Upgrademenu : MonoBehaviour {
 		
 		float start = 0.94f;
 		foreach(GameObject g in Buildings) {
-			// Create a new GUI element.
-			GameObject newElement = Instantiate(BuildingMenuElement,new Vector3(0.07f,start,0f),Quaternion.identity) as GameObject;
-			Debug.Log("Building meny for " + newElement);
-			newElement.GetComponent<UpgradeGUIElement>().MyAddon = g;
-			newElement.GetComponent<UpgradeGUIElement>().MyMenu = this.gameObject;
-			
-			newElement.transform.parent = this.transform;
-			
-			newElement.transform.FindChild("Name").guiText.text = g.GetComponent<Buildable>().Name;
-			newElement.transform.FindChild("Description").guiText.text = g.GetComponent<Buildable>().Description;
-			
-			newElement.SetActive(true);
-			start -=0.1f;
+			if ((g.GetComponent<Buildable>().Size <= maxSize && !ExactSize) || (ExactSize && g.GetComponent<Buildable>().Size == maxSize)) {
+				// Create a new GUI element.
+				GameObject newElement = Instantiate(BuildingMenuElement,new Vector3(0.07f,start,0f),Quaternion.identity) as GameObject;
+				Debug.Log("Building meny for " + newElement);
+				newElement.GetComponent<UpgradeGUIElement>().MyAddon = g;
+				newElement.GetComponent<UpgradeGUIElement>().MyMenu = this.gameObject;
+				
+				newElement.transform.parent = this.transform;
+				
+				newElement.transform.FindChild("Name").guiText.text = g.GetComponent<Buildable>().Name;
+				newElement.transform.FindChild("Description").guiText.text = g.GetComponent<Buildable>().Description;
+				
+				newElement.SetActive(true);
+				start -=0.1f;
+			}
 		}
-	}
-	
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
 	}
 	
 	public void Upgrade(GameObject addonBase) {
