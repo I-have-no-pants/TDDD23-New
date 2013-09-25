@@ -10,17 +10,12 @@ public class WeaponComponent : MonoBehaviour {
 	
 	private float reload;
 	
-	protected GameObject target;
+	public GameObject target;
 	
 	// Update is called once per frame
 	void FixedUpdate() {
-		//ProcessTarget();
-		
-		if (target!=null) {
-			transform.LookAt(target.transform);
-			//	Debug.Log ("look");
-		}
-		
+		ProcessTarget();
+				
 		if (reload <= 0) {
 			if (ShouldShoot()) {
 				reload = ReloadTime;
@@ -35,7 +30,7 @@ public class WeaponComponent : MonoBehaviour {
 	// Overwrite this if we want projectile or something
 	protected void Shoot() {
 		target.GetComponent<HealthComponent>().Health-=Damage;
-		Debug.Log("Pew'd " + target.name);
+		Debug.Log(this.gameObject.name + " pew'd " + target.name);
 	}
 	
 	protected bool ShouldShoot() {
@@ -45,14 +40,14 @@ public class WeaponComponent : MonoBehaviour {
 		
 		if (target.GetComponent<HealthComponent>() == null || target.GetComponent<HealthComponent>().IsDead){			
 			target = null;
-			Debug.Log(name + " has new target: " + target.name);
+			Debug.Log(this.gameObject.name + " has new target: " + target);
 			return false;
 		}
 		return true;
 	}
 	
-	void OnTriggerEnter (Collider other) {
-		Debug.Log(other.name +" entered");
+	void OnTriggerStay (Collider other) {
+		//Debug.Log(other.name +" entered");
 		if (!other.isTrigger) {
 			// Add check for if other is a better target (prefer armored units, etc)
 			if (other.tag == EnemyTeam && target == null && other.gameObject.GetComponent<HealthComponent>() != null && !other.gameObject.GetComponent<HealthComponent>().IsDead) {
@@ -61,13 +56,13 @@ public class WeaponComponent : MonoBehaviour {
 			}
 		}
 	}
-	
+		/*
 	void OnTriggerExit(Collider other) {
 		if (other.gameObject == target && !other.isTrigger) {
 			Debug.Log(name + " has new target: " + target.name);
 			target = null;
 		}
-	}
+	}*/
 	
 	// Do stuff here like track target!
 	virtual protected void ProcessTarget() {
