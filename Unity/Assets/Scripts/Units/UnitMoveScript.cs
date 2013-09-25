@@ -13,6 +13,7 @@ public class UnitMoveScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		controller = GetComponent<CharacterController>();
+		Target = GameObject.FindGameObjectWithTag("TeamEnemy");
 	}
 	
 	// Update is called once per frame

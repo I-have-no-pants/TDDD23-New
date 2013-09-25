@@ -10,10 +10,17 @@ public class WeaponComponent : MonoBehaviour {
 	
 	private float reload;
 	
-	private GameObject target;
+	protected GameObject target;
 	
 	// Update is called once per frame
 	void FixedUpdate() {
+		//ProcessTarget();
+		
+		if (target!=null) {
+			transform.LookAt(target.transform);
+			//	Debug.Log ("look");
+		}
+		
 		if (reload <= 0) {
 			if (ShouldShoot()) {
 				reload = ReloadTime;
@@ -22,6 +29,7 @@ public class WeaponComponent : MonoBehaviour {
 		} else {
 			reload -= Time.fixedDeltaTime;
 		}
+		
 	}
 		
 	// Overwrite this if we want projectile or something
@@ -59,5 +67,9 @@ public class WeaponComponent : MonoBehaviour {
 			Debug.Log(name + " has new target: " + target.name);
 			target = null;
 		}
+	}
+	
+	// Do stuff here like track target!
+	virtual protected void ProcessTarget() {
 	}
 }
