@@ -12,8 +12,15 @@ public class WeaponComponent : MonoBehaviour {
 	
 	public GameObject target;
 	
+	public GameObject muzzleBlast;
+	public float muzzleBlastTime;
+	
 	// Update is called once per frame
 	void FixedUpdate() {
+		
+		if (muzzleBlast != null && ReloadTime-muzzleBlastTime >= reload)
+			muzzleBlast.SetActive(false);
+		
 		ProcessTarget();
 				
 		if (reload <= 0) {
@@ -30,6 +37,9 @@ public class WeaponComponent : MonoBehaviour {
 	// Overwrite this if we want projectile or something
 	protected void Shoot() {
 		target.GetComponent<HealthComponent>().Health-=Damage;
+		if (muzzleBlast != null)
+			muzzleBlast.SetActive(true);
+		
 		Debug.Log(this.gameObject.name + " pew'd " + target.name);
 	}
 	
@@ -38,7 +48,7 @@ public class WeaponComponent : MonoBehaviour {
 		if (target==null)
 			return false;
 		
-		if (target.GetComponent<HealthComponent>() == null || target.GetComponent<HealthComponent>().IsDead){			
+		if (target.GetComponent<HealthComponent>() == null || target.GetComponent<HealthComponent>().IsDead){		// Check distance here!	
 			target = null;
 			Debug.Log(this.gameObject.name + " has new target: " + target);
 			return false;

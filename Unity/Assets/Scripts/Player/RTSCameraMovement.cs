@@ -66,12 +66,12 @@ public class RTSCameraMovement : MonoBehaviour
 		}
        
 		//ZOOM IN/OUT
-       /*
+       
 		CurrentZoom -= Input.GetAxis ("Mouse ScrollWheel") * Time.deltaTime * 1000 * ZoomZpeed;
        
 		CurrentZoom = Mathf.Clamp (CurrentZoom, ZoomRange.x, ZoomRange.y);
        
-		transform.Translate(0,0, -transform.position.y + (InitPos.y + CurrentZoom) * 0.1f);
-		transform.Rotate(-transform.eulerAngles.x + (InitRotation.x + CurrentZoom * ZoomRotation) * 0.1f,0,0);*/
+		transform.Translate(0,0, transform.position.y - (InitPos.y + CurrentZoom));
+		transform.Rotate(-transform.eulerAngles.x + (InitRotation.x + CurrentZoom * ZoomRotation),0,0);
 	}
 }

@@ -13,6 +13,7 @@ public class UnitMoveScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		controller = GetComponent<CharacterController>();
+		if (Target ==null)
 		Target = GameObject.FindGameObjectWithTag("TeamEnemy");
 	}
 	
@@ -20,7 +21,7 @@ public class UnitMoveScript : MonoBehaviour {
 	void Update () {
 		if (Target)
 		controller.SimpleMove((Target.transform.position - transform.position).normalized * Speed);
-		transform.Rotate(0,1,0);
+		//transform.Rotate(0,1,0);
 	
 	}
 }
