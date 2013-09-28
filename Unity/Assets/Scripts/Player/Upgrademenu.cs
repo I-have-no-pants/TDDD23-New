@@ -4,12 +4,20 @@ using System.Collections.Generic;
 
 public class Upgrademenu : MonoBehaviour {
 	
+	public GameObject Player;
+	private PlayerComponent player;
+	
 	public List<GameObject> Buildings;
 	
 	public GameObject BuildingMenuElement;
 	
 	private int maxSize;
 	private bool ExactSize;
+	
+	// Use this for initialization
+	void Start () {
+		player = Player.GetComponent<PlayerComponent>();
+	}
 	
 	private GameObject target;
 	public GameObject Target {
@@ -50,8 +58,11 @@ public class Upgrademenu : MonoBehaviour {
 				
 				newElement.transform.parent = this.transform;
 				
-				newElement.transform.FindChild("Name").guiText.text = g.GetComponent<Buildable>().Name;
+				newElement.transform.FindChild("Name").guiText.text = g.GetComponent<Buildable>().Name + " [ " + g.GetComponent<Buildable>().Cost + " MB ]";
 				newElement.transform.FindChild("Description").guiText.text = g.GetComponent<Buildable>().Description;
+				
+				if (g.GetComponent<Buildable>().Cost > player.Money)
+					newElement.transform.FindChild("Name").guiText.color = Color.gray;
 				
 				newElement.SetActive(true);
 				start -=0.1f;
@@ -65,10 +76,18 @@ public class Upgrademenu : MonoBehaviour {
 			GameObject addon = Instantiate(addonBase,Target.transform.position,Target.transform.rotation) as GameObject;
 			addon.transform.parent = Target.transform.parent;
 			
+			var baseObj =Target.GetComponent<UpgradeableComponent>().myBase;
+			if (baseObj!=null) {
+				var baseObjAdd = baseObj.GetComponent<AddonComponent>();
+				if (baseObjAdd != null)
+					baseObjAdd.AddAddon(addon.GetComponent<AddonComponent>(),Target.name);
+			}
 			
 			Destroy(Target.gameObject);
 			Target = null;
 			this.gameObject.SetActive(false);
+			
+			
 		}
 	}
 	

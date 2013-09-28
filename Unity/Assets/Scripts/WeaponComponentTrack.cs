@@ -5,6 +5,7 @@ public class WeaponComponentTrack : WeaponComponent {
 	
 	public GameObject turret;
 	
+	
 	// Add features like lock rotations
 	
 	protected override void ProcessTarget() {

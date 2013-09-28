@@ -3,7 +3,6 @@ using System.Collections;
 
 public class WeaponComponent : MonoBehaviour {
 	
-	public string EnemyTeam;
 	public int Damage;
 	
 	public float ReloadTime;
@@ -15,12 +14,18 @@ public class WeaponComponent : MonoBehaviour {
 	public GameObject muzzleBlast;
 	public float muzzleBlastTime;
 	
+	public TeamComponent myTeam;
+	
+	
+	void Start() {
+		myTeam = GetComponent<TeamComponent>();
+	}
+	
 	// Update is called once per frame
 	void FixedUpdate() {
 		
 		if (muzzleBlast != null && ReloadTime-muzzleBlastTime >= reload)
 			muzzleBlast.SetActive(false);
-		
 		ProcessTarget();
 				
 		if (reload <= 0) {
@@ -56,23 +61,23 @@ public class WeaponComponent : MonoBehaviour {
 		return true;
 	}
 	
-	void OnTriggerStay (Collider other) {
+	void OnTriggerEnter (Collider other) {
 		//Debug.Log(other.name +" entered");
 		if (!other.isTrigger) {
 			// Add check for if other is a better target (prefer armored units, etc)
-			if (other.tag == EnemyTeam && target == null && other.gameObject.GetComponent<HealthComponent>() != null && !other.gameObject.GetComponent<HealthComponent>().IsDead) {
+			if (other.tag == myTeam.EnemyTeam && target == null && other.gameObject.GetComponent<HealthComponent>() != null && !other.gameObject.GetComponent<HealthComponent>().IsDead) {
 				target = other.gameObject;
 				Debug.Log(name + " has new target: " + target.name);
 			}
 		}
 	}
-		/*
+		
 	void OnTriggerExit(Collider other) {
 		if (other.gameObject == target && !other.isTrigger) {
 			Debug.Log(name + " has new target: " + target.name);
 			target = null;
 		}
-	}*/
+	}
 	
 	// Do stuff here like track target!
 	virtual protected void ProcessTarget() {

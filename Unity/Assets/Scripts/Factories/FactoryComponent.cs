@@ -1,30 +1,59 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
-public class FactoryComponent : MonoBehaviour, TeamComponent {
+public class FactoryComponent : AddonComponent {
 	
 	public IList Addons = new ArrayList();
 	
-	public GameObject BaseSpawn;
-	
 	public string MyTeam{get;set;}
 	
-	Vector3 spawnPosition;
+	Transform spawnPosition;
+	
+	public float BaseSpawnTime = 10;
+	private float spawnTimeCounter;
+	
+	private TeamComponent myTeam;
 	
 	// Use this for initialization
 	void Start () {
-		Debug.Log("Spawnposition is " + this.transform.FindChild("SpawnPosition").name);
-		spawnPosition = this.transform.FindChild("SpawnPosition").transform.position;
-	
+		//Debug.Log("Spawnposition is " + this.transform.FindChild("SpawnPosition").name);
+		spawnPosition = this.transform.FindChild("SpawnPosition").transform;
+		spawnTimeCounter=BaseSpawnTime;
+		
+		addons = new SortedDictionary<string, AddonComponent>();
+		
+		myTeam = GetComponent<TeamComponent>();
 	}
 	
 	// Update is called once per frame
-	void Update () {
-	
+	void FixedUpdate () {
+		spawnTimeCounter-=Time.fixedDeltaTime;
+		if (spawnTimeCounter<= 0) {
+			// Add some unit limit check here?
+			Spawn ();
+			spawnTimeCounter=BaseSpawnTime;
+		}
 	}
 	
 	public void Spawn() {
-		Debug.Log(""+name + " spawns a " + BaseSpawn.name);
+		var spawn = Decorate(null,spawnPosition);
+		
+		spawn.tag = myTeam.MyTeam;
+		
+		if (myTeam != null) {
+			foreach (var t in spawn.GetComponentsInChildren<TeamComponent>()){
+				t.MyTeam = myTeam.MyTeam;
+				t.EnemyTeam = myTeam.EnemyTeam;
+			}
+			
+		}
+		
+		
+		
+		// Set team of the newly spawned thingy
+
+		/*
 		GameObject spawn = Instantiate(BaseSpawn,spawnPosition,Quaternion.identity) as GameObject;
 		
 		// Instanciate childrens...
@@ -37,7 +66,7 @@ public class FactoryComponent : MonoBehaviour, TeamComponent {
 				comp.Decorate(spawn, pos);
 				i++;
 			}
-		}
+		}*/
 		
 	}
 }

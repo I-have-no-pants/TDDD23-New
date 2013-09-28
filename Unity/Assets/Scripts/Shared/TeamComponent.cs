@@ -4,9 +4,9 @@ using System.Collections;
 /// <summary>
 /// Team component. - Remembers what team I am on, usefull for weapons, etc.
 /// </summary>
-public interface TeamComponent {
+public class TeamComponent : MonoBehaviour {
 	
-	string MyTeam{get;set;}
-	
+	public string MyTeam;
+	public string EnemyTeam;
 	
 }

@@ -8,20 +8,24 @@ public class UnitMoveScript : MonoBehaviour {
 	
 	public float Speed = 1;
 	
+	public TeamComponent myTeam;
+	
 	private CharacterController controller;
 
 	// Use this for initialization
 	void Start () {
 		controller = GetComponent<CharacterController>();
-		if (Target ==null)
-		Target = GameObject.FindGameObjectWithTag("TeamEnemy");
+		myTeam = GetComponent<TeamComponent>();
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 		if (Target)
-		controller.SimpleMove((Target.transform.position - transform.position).normalized * Speed);
+			controller.SimpleMove((Target.transform.position - transform.position).normalized * Speed);
 		//transform.Rotate(0,1,0);
+		
+		if (Target ==null)
+			Target = GameObject.FindGameObjectWithTag(myTeam.EnemyTeam);
 	
 	}
 }

@@ -1,36 +1,42 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+using System.Collections.Generic;
+
 public class AddonComponent : MonoBehaviour {
 
+	public GameObject MyAddon;	
+
+	protected SortedDictionary<string,AddonComponent> addons;
+	
 	// Use this for initialization
 	void Start () {
-	
+		addons = new SortedDictionary<string, AddonComponent>();
 	}
 	
-	// Update is called once per frame
-	void Update () {
 	
+	public void AddAddon(AddonComponent addon, string position) {
+		Debug.Log("Addon added!");
+		addons.Add(position,addon);
 	}
 	
-	public GameObject MyAddon;
-	
-	public void Decorate(GameObject obj, Transform position) {
+	public GameObject Decorate(GameObject obj, Transform position) {
 		GameObject addon = Instantiate(MyAddon,position.position,position.rotation) as GameObject;
-		
-		// Instanciate childrens...
-		int i = 0;
-		foreach (Transform child in transform) {
-			var comp = child.GetComponent<AddonComponent>();
+		addon.SetActive(true);
+		foreach(var currentAddonPosition in addons.Keys) {
+			var currentAddon = addons[currentAddonPosition]; // Ugly lookup
+						
+			var comp = currentAddon.GetComponent<AddonComponent>();
+						
 			if (comp != null) {
-				Transform pos = addon.transform.FindChild("Addon"+i);
-				Debug.Log("Decorating at " + pos);
-				comp.Decorate(addon, pos);
-				i++;
+				Transform pos = addon.transform.FindChild(currentAddonPosition); // Position we want to place our addon on
+				Debug.Log("Decorating at " + currentAddonPosition);
+				comp.Decorate(addon, pos).transform.parent = addon.transform;
 			}
 			
 		}
-		
-		addon.transform.parent = obj.transform;
+		return addon;
+				
+		//
 	}
 }
