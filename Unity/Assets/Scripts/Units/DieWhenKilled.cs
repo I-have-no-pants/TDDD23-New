@@ -13,8 +13,13 @@ public class DieWhenKilled : HealthComponent {
 	
 	protected override void OnDeath ()
 	{
-		if (DeathEffect)
-			Destroy(Instantiate(DeathEffect,transform.position,Quaternion.identity) as GameObject,DeathEffectLifeTime);
+		if (DeathEffect) {
+			var deatheffect = Instantiate(DeathEffect,transform.position,Quaternion.identity) as GameObject;
+			deatheffect.SetActive(true);
+			Destroy(deatheffect,DeathEffectLifeTime);
+		}
+		gameManager.Units.Remove(this);
+		
 		Destroy(this.gameObject);
 	}
 	

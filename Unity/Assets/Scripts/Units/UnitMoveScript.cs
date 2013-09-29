@@ -11,11 +11,14 @@ public class UnitMoveScript : MonoBehaviour {
 	public TeamComponent myTeam;
 	
 	private CharacterController controller;
+	
+	private GameManagerComponent gameManager;
 
 	// Use this for initialization
 	void Start () {
 		controller = GetComponent<CharacterController>();
 		myTeam = GetComponent<TeamComponent>();
+		gameManager = GameObject.Find("GameManager").GetComponent<GameManagerComponent>();
 	}
 	
 	// Update is called once per frame
@@ -24,8 +27,16 @@ public class UnitMoveScript : MonoBehaviour {
 			controller.SimpleMove((Target.transform.position - transform.position).normalized * Speed);
 		//transform.Rotate(0,1,0);
 		
-		if (Target ==null)
-			Target = GameObject.FindGameObjectWithTag(myTeam.EnemyTeam);
+		if (Target ==null){
+			Target = null;
+			foreach(HealthComponent h in gameManager.Units) {
+				if (h.MyTeam == myTeam.EnemyTeam) {
+					Target = h.gameObject;
+					break;
+				}
+			}
+		}
+				
 	
 	}
 }

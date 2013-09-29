@@ -5,6 +5,19 @@ public abstract  class HealthComponent : MonoBehaviour {
 	
 	public int MaxHealth;
 	
+	protected GameManagerComponent gameManager;
+	
+	private TeamComponent myTeam;
+	
+	public string MyTeam {
+		get {
+			if (myTeam)
+				return myTeam.MyTeam;
+			else
+				return "";
+		}
+	}
+	
 	public bool IsDead {
 		get;
 		private set;
@@ -30,6 +43,9 @@ public abstract  class HealthComponent : MonoBehaviour {
 	
 	void Start() {
 		health = MaxHealth;
+		gameManager = GameObject.Find("GameManager").GetComponent<GameManagerComponent>();
+		gameManager.Units.Add(this);
+		myTeam = GetComponent<TeamComponent>();
 	}
 	
 	

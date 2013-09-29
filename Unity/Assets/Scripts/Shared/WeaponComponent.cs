@@ -9,16 +9,25 @@ public class WeaponComponent : MonoBehaviour {
 	
 	private float reload;
 	
-	public GameObject target;
+	protected HealthComponent target;
 	
 	public GameObject muzzleBlast;
 	public float muzzleBlastTime;
 	
 	public TeamComponent myTeam;
 	
+	public float Range;
+	
+	
+	protected GameManagerComponent gameManager;
+	
+	protected Vector3 up;
+	
 	
 	void Start() {
 		myTeam = GetComponent<TeamComponent>();
+		gameManager = GameObject.Find("GameManager").GetComponent<GameManagerComponent>();
+		up = Vector3.up;
 	}
 	
 	// Update is called once per frame
@@ -26,13 +35,19 @@ public class WeaponComponent : MonoBehaviour {
 		
 		if (muzzleBlast != null && ReloadTime-muzzleBlastTime >= reload)
 			muzzleBlast.SetActive(false);
+		
 		ProcessTarget();
 				
 		if (reload <= 0) {
-			if (ShouldShoot()) {
+			
+			if (ValidTarget(target)) {
 				reload = ReloadTime;
 				Shoot ();
+			} else {
+				findTarget();
+				reload = 0.1f; // Small delay so we don't spam findTarget();
 			}
+			
 		} else {
 			reload -= Time.fixedDeltaTime;
 		}
@@ -41,41 +56,40 @@ public class WeaponComponent : MonoBehaviour {
 		
 	// Overwrite this if we want projectile or something
 	protected void Shoot() {
-		target.GetComponent<HealthComponent>().Health-=Damage;
+		target.Health-=Damage;
 		if (muzzleBlast != null)
 			muzzleBlast.SetActive(true);
 		
-		Debug.Log(this.gameObject.name + " pew'd " + target.name);
+		Debug.Log(this.gameObject.name + " pew'd " + target.gameObject.name);
 	}
 	
-	protected bool ShouldShoot() {
+	protected bool ValidTarget(HealthComponent g) {
 		
-		if (target==null)
+		if (g==null)
 			return false;
 		
-		if (target.GetComponent<HealthComponent>() == null || target.GetComponent<HealthComponent>().IsDead){		// Check distance here!	
-			target = null;
-			Debug.Log(this.gameObject.name + " has new target: " + target);
+		if (g.IsDead)		// Check distance here!	
 			return false;
-		}
+		
+		if (g.MyTeam != myTeam.EnemyTeam)
+			return false;
+			
+		if ((g.gameObject.transform.position - gameObject.transform.position).magnitude > Range)
+			return false;
+		
+		// Check angles
+		
+		
+		
 		return true;
 	}
 	
-	void OnTriggerEnter (Collider other) {
-		//Debug.Log(other.name +" entered");
-		if (!other.isTrigger) {
-			// Add check for if other is a better target (prefer armored units, etc)
-			if (other.tag == myTeam.EnemyTeam && target == null && other.gameObject && other.gameObject.GetComponent<HealthComponent>() != null && !other.gameObject.GetComponent<HealthComponent>().IsDead) {
-				target = other.gameObject;
-				Debug.Log(name + " has new target: " + target.name);
+	private void findTarget() {
+		foreach (HealthComponent h in gameManager.Units){
+			if (ValidTarget(h)) {
+				target = h;
+				break;
 			}
-		}
-	}
-		
-	void OnTriggerExit(Collider other) {
-		if (other.gameObject == target && !other.isTrigger) {
-			Debug.Log(name + " has new target: " + target.name);
-			target = null;
 		}
 	}
 	

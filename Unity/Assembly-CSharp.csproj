@@ -44,14 +44,14 @@
 	</Reference>
   </ItemGroup>
   <ItemGroup>
-     <Compile Include="Assets\ChangeLevelOnClick.cs" />
-     <Compile Include="Assets\RotateSinus.cs" />
      <Compile Include="Assets\Scripts\Buildable.cs" />
+     <Compile Include="Assets\Scripts\ChangeLevelOnClick.cs" />
      <Compile Include="Assets\Scripts\Debug\MessageOnClick.cs" />
      <Compile Include="Assets\Scripts\Debug\SpawnOnClick.cs" />
      <Compile Include="Assets\Scripts\Factories\AddonComponent.cs" />
      <Compile Include="Assets\Scripts\Factories\FactoryComponent.cs" />
      <Compile Include="Assets\Scripts\FadeAway.cs" />
+     <Compile Include="Assets\Scripts\GameManagerComponent.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerComponent.cs" />
      <Compile Include="Assets\Scripts\Player\RTSCameraClick.cs" />
      <Compile Include="Assets\Scripts\Player\RTSCameraMovement.cs" />
@@ -59,6 +59,7 @@
      <Compile Include="Assets\Scripts\Player\UpgradeableComponent.cs" />
      <Compile Include="Assets\Scripts\Player\Upgrademenu.cs" />
      <Compile Include="Assets\Scripts\RotateAround.cs" />
+     <Compile Include="Assets\Scripts\RotateSinus.cs" />
      <Compile Include="Assets\Scripts\Shared\AttachmentComponent.cs" />
      <Compile Include="Assets\Scripts\Shared\ClickComponent.cs" />
      <Compile Include="Assets\Scripts\Shared\HealthComponent.cs" />
