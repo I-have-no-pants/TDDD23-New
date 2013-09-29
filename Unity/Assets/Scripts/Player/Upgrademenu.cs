@@ -72,21 +72,27 @@ public class Upgrademenu : MonoBehaviour {
 	
 	public void Upgrade(GameObject addonBase) {
 		if (Target!=null) {
-			Debug.Log ("upgraded "+name);
-			GameObject addon = Instantiate(addonBase,Target.transform.position,Target.transform.rotation) as GameObject;
-			addon.transform.parent = Target.transform.parent;
 			
-			var baseObj =Target.GetComponent<UpgradeableComponent>().myBase;
-			if (baseObj!=null) {
-				var baseObjAdd = baseObj.GetComponent<AddonComponent>();
-				if (baseObjAdd != null)
-					baseObjAdd.AddAddon(addon.GetComponent<AddonComponent>(),Target.name);
+			if (player.Money >= addonBase.GetComponent<Buildable>().Cost) {
+				
+				player.Money-= addonBase.GetComponent<Buildable>().Cost;
+			
+				Debug.Log ("upgraded "+name);
+				GameObject addon = Instantiate(addonBase,Target.transform.position,Target.transform.rotation) as GameObject;
+				addon.transform.parent = Target.transform.parent;
+				
+				var baseObj =Target.GetComponent<UpgradeableComponent>().myBase;
+				if (baseObj!=null) {
+					var baseObjAdd = baseObj.GetComponent<AddonComponent>();
+					if (baseObjAdd != null)
+						baseObjAdd.AddAddon(addon.GetComponent<AddonComponent>(),Target.name);
+				}
+				
+				Destroy(Target.gameObject);
+				Target = null;
+				this.gameObject.SetActive(false);
+				
 			}
-			
-			Destroy(Target.gameObject);
-			Target = null;
-			this.gameObject.SetActive(false);
-			
 			
 		}
 	}

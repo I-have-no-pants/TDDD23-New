@@ -65,7 +65,7 @@ public class WeaponComponent : MonoBehaviour {
 		//Debug.Log(other.name +" entered");
 		if (!other.isTrigger) {
 			// Add check for if other is a better target (prefer armored units, etc)
-			if (other.tag == myTeam.EnemyTeam && target == null && other.gameObject.GetComponent<HealthComponent>() != null && !other.gameObject.GetComponent<HealthComponent>().IsDead) {
+			if (other.tag == myTeam.EnemyTeam && target == null && other.gameObject && other.gameObject.GetComponent<HealthComponent>() != null && !other.gameObject.GetComponent<HealthComponent>().IsDead) {
 				target = other.gameObject;
 				Debug.Log(name + " has new target: " + target.name);
 			}
