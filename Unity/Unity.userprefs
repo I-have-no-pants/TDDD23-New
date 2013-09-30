@@ -1,17 +1,20 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\RotateAround.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Shared\HealthComponent.cs">
     <Files>
       <File FileName="Assets\Scripts\Shared\TeamComponent.cs" Line="1" Column="1" />
       <File FileName="Assets\Scripts\Player\UpgradeableComponent.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Factories\FactoryComponent.cs" Line="42" Column="29" />
-      <File FileName="Assets\Scripts\Factories\AddonComponent.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Player\UpgradeGUIElement.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Player\Upgrademenu.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\WeaponComponentTrack.cs" Line="4" Column="13" />
-      <File FileName="Assets\Scripts\Shared\WeaponComponent.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Units\UnitMoveScript.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\RotateAround.cs" Line="19" Column="1" />
+      <File FileName="Assets\Scripts\Factories\FactoryComponent.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Factories\AddonComponent.cs" Line="4" Column="34" />
+      <File FileName="Assets\Scripts\Player\UpgradeGUIElement.cs" Line="7" Column="27" />
+      <File FileName="Assets\Scripts\Player\Upgrademenu.cs" Line="78" Column="61" />
+      <File FileName="Assets\Scripts\WeaponComponentTrack.cs" Line="14" Column="56" />
+      <File FileName="Assets\Scripts\Shared\WeaponComponent.cs" Line="74" Column="16" />
+      <File FileName="Assets\Scripts\Units\UnitMoveScript.cs" Line="31" Column="12" />
+      <File FileName="Assets\Scripts\RotateAround.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Units\DieWhenKilled.cs" Line="19" Column="23" />
+      <File FileName="Assets\Scripts\Shared\HealthComponent.cs" Line="47" Column="1" />
+      <File FileName="Assets\Scripts\GameManagerComponent.cs" Line="13" Column="3" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>

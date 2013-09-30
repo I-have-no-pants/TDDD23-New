@@ -14,9 +14,12 @@ public class Upgrademenu : MonoBehaviour {
 	private int maxSize;
 	private bool ExactSize;
 	
+	private TeamComponent myTeam;
+	
 	// Use this for initialization
 	void Start () {
 		player = Player.GetComponent<PlayerComponent>();
+		myTeam = player.GetComponent<TeamComponent>();
 	}
 	
 	private GameObject target;
@@ -76,19 +79,10 @@ public class Upgrademenu : MonoBehaviour {
 			if (player.Money >= addonBase.GetComponent<Buildable>().Cost) {
 				
 				player.Money-= addonBase.GetComponent<Buildable>().Cost;
+				
 			
-				Debug.Log ("upgraded "+name);
-				GameObject addon = Instantiate(addonBase,Target.transform.position,Target.transform.rotation) as GameObject;
-				addon.transform.parent = Target.transform.parent;
+				Target.GetComponent<UpgradeableComponent>().Upgrade(addonBase.GetComponent<Buildable>(), myTeam);
 				
-				var baseObj =Target.GetComponent<UpgradeableComponent>().myBase;
-				if (baseObj!=null) {
-					var baseObjAdd = baseObj.GetComponent<AddonComponent>();
-					if (baseObjAdd != null)
-						baseObjAdd.AddAddon(addon.GetComponent<AddonComponent>(),Target.name);
-				}
-				
-				Destroy(Target.gameObject);
 				Target = null;
 				this.gameObject.SetActive(false);
 				

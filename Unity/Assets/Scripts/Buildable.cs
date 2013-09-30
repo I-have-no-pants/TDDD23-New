@@ -8,5 +8,13 @@ public class Buildable : MonoBehaviour {
 	public string Name;
 	public string Description;
 	
+	private TeamComponent myTeam;
 	
+	void Start() {
+		// Hide addon position if we are not in players team
+		myTeam = GetComponent<TeamComponent>();
+		//if (myTeam != "TeamPlayer")
+			
+	}
+		
 }
