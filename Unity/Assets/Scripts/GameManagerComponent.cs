@@ -11,9 +11,4 @@ public class GameManagerComponent : MonoBehaviour {
 	void Start () {
 		Units = new HashSet<HealthComponent>();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 }

@@ -20,15 +20,25 @@ public class UpgradeableComponent : MonoBehaviour {
 				baseObjAdd.AddAddon(addon.GetComponent<AddonComponent>(),name);
 		}
 		
-		var myTeam = GetComponent<TeamComponent>();
+		var myTeam = addon.GetComponent<TeamComponent>();
 		if (myTeam) {
 			myTeam.MyTeam = team.MyTeam;
 			myTeam.EnemyTeam = team.EnemyTeam;
 		}
 		
 		//Destroy(Target.gameObject);
+		
+		if (team.MyTeam == "TeamEnemy")
+			GameObject.Find ("Enemy").GetComponent<EnemyPlayer>().PossiblePlaces.Remove (this);
+		
 		gameObject.SetActive(false);
 		
+	}
+	
+	public bool canBuild(int size) {
+		if (ExactSize)
+			return size == maxSize;
+		return size <= maxSize;
 	}
 	
 }

@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
+using System;
 public class WeaponComponent : MonoBehaviour {
 	
 	public int Damage;
@@ -14,7 +16,7 @@ public class WeaponComponent : MonoBehaviour {
 	public GameObject muzzleBlast;
 	public float muzzleBlastTime;
 	
-	public TeamComponent myTeam;
+	private TeamComponent myTeam;
 	
 	public float Range;
 	
@@ -23,11 +25,18 @@ public class WeaponComponent : MonoBehaviour {
 	
 	protected Vector3 up;
 	
+	public float maxAngle = 90;
+	
+	public Vector3 FiringAngle;
+	
+	public List<GameObject> Addons;
+	
 	
 	void Start() {
 		myTeam = GetComponent<TeamComponent>();
 		gameManager = GameObject.Find("GameManager").GetComponent<GameManagerComponent>();
 		up = Vector3.up;
+		VerifyAngles();
 	}
 	
 	// Update is called once per frame
@@ -36,16 +45,21 @@ public class WeaponComponent : MonoBehaviour {
 		if (muzzleBlast != null && ReloadTime-muzzleBlastTime >= reload)
 			muzzleBlast.SetActive(false);
 		
-		ProcessTarget();
+		
+		if (ValidTarget(target))
+			ProcessTarget();
 				
 		if (reload <= 0) {
 			
 			if (ValidTarget(target)) {
 				reload = ReloadTime;
 				Shoot ();
+				
+				
 			} else {
-				findTarget();
 				reload = 0.1f; // Small delay so we don't spam findTarget();
+				findTarget();
+				
 			}
 			
 		} else {
@@ -73,9 +87,18 @@ public class WeaponComponent : MonoBehaviour {
 		
 		if (g.MyTeam != myTeam.EnemyTeam)
 			return false;
+		
+		Vector3 dist = (g.gameObject.transform.position - gameObject.transform.position);
 			
-		if ((g.gameObject.transform.position - gameObject.transform.position).magnitude > Range)
+		if (dist.magnitude > Range)
 			return false;
+		
+		Debug.DrawLine(gameObject.transform.position, gameObject.transform.position+transform.TransformDirection(FiringAngle),Color.red);
+		
+		float angle =AngleAroundAxis(gameObject.transform.position,g.gameObject.transform.position,gameObject.transform.TransformDirection(FiringAngle));
+		if (angle > maxAngle || angle < -maxAngle)
+			return false;
+	
 		
 		// Check angles
 		
@@ -96,4 +119,41 @@ public class WeaponComponent : MonoBehaviour {
 	// Do stuff here like track target!
 	virtual protected void ProcessTarget() {
 	}
+	
+	public void VerifyAngles() {
+		
+		Debug.Log (AngleAroundAxis(Vector3.up, Vector3.up*2, Vector3.up));
+		Debug.Log (AngleAroundAxis(Vector3.zero, Vector3.left*2, Vector3.up));
+		
+		Debug.Log (AngleAroundAxis(Vector3.zero, Vector3.left+Vector3.up, Vector3.up));
+		
+		
+		Debug.Log (AngleAroundAxis(Vector3.zero, Vector3.left+Vector3.up, Vector3.up));
+		
+	}
+	
+	// The angle between dirA and dirB around axis
+	public static float AngleAroundAxis (Vector3 dirA, Vector3 dirB, Vector3 axis) {
+	    // Project A and B onto the plane orthogonal target axis
+		
+		
+		
+		return Vector3.Angle(axis, dirB-dirA);
+		
+		/*
+		Vector3 dist = dirA - dirB;
+		
+		Vector3 compa = Vector3.Project (dist, axis);
+		Vector3 compb = dist - compa;*/
+	    //dirA = Vector3.Project (dirA, axis);
+	    //dirB = dist - Vector3.Project (dirB, axis);
+	   
+	    // Find (positive) angle between A and B
+	    //float angle = Vector3.Angle (dirB, dirA);
+	   
+	    // Return angle multiplied with 1 or -1
+		//Debug.Log(angle * (Vector3.Dot (axis, Vector3.Cross (dirA, dirB)) < 0 ? -1 : 1));
+	    
+	}
+	
 }

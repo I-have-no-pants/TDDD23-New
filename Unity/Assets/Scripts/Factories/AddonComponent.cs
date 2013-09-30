@@ -30,6 +30,7 @@ public class AddonComponent : MonoBehaviour {
 						
 			if (comp != null) {
 				Transform pos = addon.transform.FindChild(currentAddonPosition); // Position we want to place our addon on
+				//Transform pos = addon.GetComponent<WeaponComponent>().Addons.
 				Debug.Log("Decorating at " + currentAddonPosition);
 				comp.Decorate(addon, pos).transform.parent = addon.transform;
 			}

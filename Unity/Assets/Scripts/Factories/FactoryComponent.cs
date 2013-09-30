@@ -17,6 +17,7 @@ public class FactoryComponent : AddonComponent {
 	
 	// Use this for initialization
 	void Start () {
+		
 		//Debug.Log("Spawnposition is " + this.transform.FindChild("SpawnPosition").name);
 		spawnPosition = this.transform.FindChild("SpawnPosition").transform;
 		spawnTimeCounter=BaseSpawnTime;
@@ -31,15 +32,14 @@ public class FactoryComponent : AddonComponent {
 		spawnTimeCounter-=Time.fixedDeltaTime;
 		if (spawnTimeCounter<= 0) {
 			// Add some unit limit check here?
-			Spawn ();
 			spawnTimeCounter=BaseSpawnTime;
+			Spawn ();
+			
 		}
 	}
 	
 	public void Spawn() {
 		var spawn = Decorate(null,spawnPosition);
-		
-		spawn.tag = myTeam.MyTeam;
 		
 		if (myTeam != null) {
 			foreach (var t in spawn.GetComponentsInChildren<TeamComponent>()){
