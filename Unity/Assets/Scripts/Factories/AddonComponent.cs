@@ -8,6 +8,7 @@ public class AddonComponent : MonoBehaviour {
 	public GameObject MyAddon;	
 
 	protected SortedDictionary<string,AddonComponent> addons;
+
 	
 	// Use this for initialization
 	void Start () {
@@ -20,8 +21,17 @@ public class AddonComponent : MonoBehaviour {
 		addons.Add(position,addon);
 	}
 	
-	public GameObject Decorate(GameObject obj, Transform position) {
+	public GameObject Decorate(GameObject obj, Transform position, GameObject root) {
 		GameObject addon = Instantiate(MyAddon,position.position,position.rotation) as GameObject;
+		if (root == null)
+			root = addon;
+		else {
+			var weaponScript = addon.GetComponent<WeaponComponent>();
+			if (weaponScript != null) {
+				weaponScript.myUnit = root.GetComponent<PathfindMovement>();
+				Debug.Log(weaponScript.myUnit);
+			}
+		}
 		addon.SetActive(true);
 		foreach(var currentAddonPosition in addons.Keys) {
 			var currentAddon = addons[currentAddonPosition]; // Ugly lookup
@@ -32,7 +42,7 @@ public class AddonComponent : MonoBehaviour {
 				Transform pos = addon.transform.FindChild(currentAddonPosition); // Position we want to place our addon on
 				//Transform pos = addon.GetComponent<WeaponComponent>().Addons.
 				Debug.Log("Decorating at " + currentAddonPosition);
-				comp.Decorate(addon, pos).transform.parent = addon.transform;
+				comp.Decorate(addon, pos, root).transform.parent = addon.transform;
 			}
 			
 		}

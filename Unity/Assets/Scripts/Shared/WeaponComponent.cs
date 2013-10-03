@@ -12,6 +12,18 @@ public class WeaponComponent : MonoBehaviour {
 	private float reload;
 	
 	protected HealthComponent target;
+	protected HealthComponent Target {
+		get {
+			return target;
+		}
+		set {
+			if (target == null && value != null)
+				myUnit.ActiveTurrets++;
+			//else if (target != null && value == null)
+			//	myUnit.ActiveTurrets--;
+			target = value;
+		}
+	}
 	
 	public GameObject muzzleBlast;
 	public float muzzleBlastTime;
@@ -30,6 +42,11 @@ public class WeaponComponent : MonoBehaviour {
 	public Vector3 FiringAngle;
 	
 	public List<GameObject> Addons;
+	
+	public PathfindMovement myUnit {
+		get;
+		set;
+	}
 	
 	
 	void Start() {
@@ -58,6 +75,7 @@ public class WeaponComponent : MonoBehaviour {
 				
 			} else {
 				reload = 0.1f; // Small delay so we don't spam findTarget();
+				target = null;
 				findTarget();
 				
 			}

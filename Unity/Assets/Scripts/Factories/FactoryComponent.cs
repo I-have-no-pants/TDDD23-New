@@ -39,7 +39,7 @@ public class FactoryComponent : AddonComponent {
 	}
 	
 	public void Spawn() {
-		var spawn = Decorate(null,spawnPosition);
+		var spawn = Decorate(null,spawnPosition, null);
 		
 		if (myTeam != null) {
 			foreach (var t in spawn.GetComponentsInChildren<TeamComponent>()){
