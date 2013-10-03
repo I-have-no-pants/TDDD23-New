@@ -1,23 +1,40 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\PathfindMovement.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Shared\WeaponComponent.cs">
     <Files>
       <File FileName="AngleTester.cs" Line="1" Column="23" />
       <File FileName="Assets\Scripts\Player\Upgrademenu.cs" Line="58" Column="5" />
-      <File FileName="Assets\Scripts\Factories\FactoryComponent.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Factories\FactoryComponent.cs" Line="42" Column="50" />
       <File FileName="Assets\Scripts\Buildable.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Factories\AddonComponent.cs" Line="1" Column="1" />
-      <File FileName="Assets\EnemyPlayer.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Factories\AddonComponent.cs" Line="32" Column="36" />
+      <File FileName="Assets\EnemyPlayer.cs" Line="38" Column="9" />
       <File FileName="Assets\Scripts\Player\UpgradeableComponent.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Units\UnitMoveScript.cs" Line="1" Column="1" />
+      <File FileName="Assets\Scripts\Units\UnitMoveScript.cs" Line="20" Column="42" />
       <File FileName="Assets\Scripts\GameManagerComponent.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\WeaponComponentTrack.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Shared\WeaponComponent.cs" Line="1" Column="1" />
-      <File FileName="Assets\PathfindMovement.cs" Line="63" Column="5" />
+      <File FileName="Assets\Scripts\WeaponComponentTrack.cs" Line="4" Column="47" />
+      <File FileName="Assets\Scripts\Shared\WeaponComponent.cs" Line="22" Column="6" />
+      <File FileName="Assets\PathfindMovement.cs" Line="23" Column="19" />
+      <File FileName="Assets\AstarPathfindingProject\Core\Path.cs" Line="265" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
-        <State expanded="True" selected="True" />
+        <State expanded="True">
+          <Node name="Assembly-CSharp" expanded="True">
+            <Node name="Assets" expanded="True">
+              <Node name="AstarPathfindingProject" expanded="True">
+                <Node name="Core" expanded="True" />
+              </Node>
+              <Node name="Scripts" expanded="True">
+                <Node name="Factories" expanded="True" />
+                <Node name="Player" expanded="True" />
+                <Node name="Shared" expanded="True">
+                  <Node name="WeaponComponent.cs" selected="True" />
+                </Node>
+                <Node name="Units" expanded="True" />
+              </Node>
+            </Node>
+          </Node>
+        </State>
       </Pad>
       <Pad Id="ClassPad">
         <State expanded="True" selected="True" />
