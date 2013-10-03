@@ -55,6 +55,8 @@ public class Upgrademenu : MonoBehaviour {
 			if ((g.GetComponent<Buildable>().Size <= maxSize && !ExactSize) || (ExactSize && g.GetComponent<Buildable>().Size == maxSize)) {
 				// Create a new GUI element.
 				GameObject newElement = Instantiate(BuildingMenuElement,new Vector3(0.07f,start,0f),Quaternion.identity) as GameObject;
+				
+				newElement.transform.position = new Vector3(0.07f,start,0f);
 				Debug.Log("Building meny for " + newElement);
 				newElement.GetComponent<UpgradeGUIElement>().MyAddon = g;
 				newElement.GetComponent<UpgradeGUIElement>().MyMenu = this.gameObject;
