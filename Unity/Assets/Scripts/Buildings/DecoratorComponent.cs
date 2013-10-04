@@ -28,10 +28,10 @@ public class DecoratorComponent : BuildableComponent {
 		else {
 			
 			// Attach all other addons to the root
-			var weaponScript = addon.GetComponent<WeaponComponent>();
+			var weaponScript = addon.GetComponent<AddonComponent>();
 			if (weaponScript != null) {
 				weaponScript.myUnit = root.GetComponent<PathfindMovement>();
-				Debug.Log(weaponScript.myUnit);
+				//Debug.Log(weaponScript.myUnit);
 			}
 		}
 		

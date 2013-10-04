@@ -7,10 +7,9 @@
           <Node name="Assembly-CSharp" expanded="True">
             <Node name="Assets" expanded="True">
               <Node name="Scripts" expanded="True">
-                <Node name="Buildings" expanded="True">
-                  <Node name="BuildableComponent.cs" selected="True" />
+                <Node name="Units" expanded="True">
+                  <Node name="PathfindMovement.cs" selected="True" />
                 </Node>
-                <Node name="Player" expanded="True" />
               </Node>
             </Node>
           </Node>
