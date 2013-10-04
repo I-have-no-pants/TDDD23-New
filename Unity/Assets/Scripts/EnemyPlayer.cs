@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -52,11 +52,11 @@ public class EnemyPlayer : MonoBehaviour {
 			
 			if (uprg != null) {
 								
-				Buildable building = null;
+				BuildableComponent building = null;
 				
 				foreach (var u in menu.Buildings) {
-					var b = u.GetComponent<Buildable>();
-					if (uprg.canBuild(b.Size) && Random.value<.25f) {
+					var b = u.GetComponent<BuildableComponent>();
+					if (b != null && uprg.canBuild(b.Size) && Random.value<.25f) {
 						building = b;
 					}
 				}

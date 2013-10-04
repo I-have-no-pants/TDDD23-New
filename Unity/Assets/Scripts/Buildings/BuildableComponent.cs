@@ -3,7 +3,8 @@ using System.Collections;
 
 using System.Collections.Generic;
 
-public class Buildable : MonoBehaviour {
+
+public class BuildableComponent : MonoBehaviour {
 	
 	public int Size;
 	public int Cost;
@@ -12,11 +13,17 @@ public class Buildable : MonoBehaviour {
 	
 	public List<GameObject> AddonNodes;
 	
-	private TeamComponent myTeam;
+	protected SortedDictionary<string,BuildableComponent> addons;
+
+	protected TeamComponent myTeam;
 	
 	void Start() {
-		// Hide addon position if we are not in players team
+		 InitBuildableComponent();
 		
+	}
+	
+	protected void InitBuildableComponent() {
+		addons = new SortedDictionary<string, BuildableComponent>();
 		myTeam = GetComponent<TeamComponent>();
 		if (myTeam && myTeam.MyTeam.CompareTo("TeamPlayer") != 0) {
 			
@@ -28,5 +35,11 @@ public class Buildable : MonoBehaviour {
 			}
 		} 
 	}
-		
+	
+	
+	public void AddAddon(BuildableComponent addon, string position) {
+		Debug.Log("Addon added!");
+		addons.Add(position,addon);
+	}
+	
 }

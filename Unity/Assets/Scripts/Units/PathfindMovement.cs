@@ -67,7 +67,7 @@ public class PathfindMovement : MonoBehaviour {
 		
 		//Direction to the next waypoint
 		//shooting = GetComponentInChildren<Sight>().shoot;
-		Debug.LogWarning(activeTurrets);
+		//Debug.LogWarning(activeTurrets);
 		if (activeTurrets == 0) {
 			timer += Time.fixedDeltaTime;
 			if (timer > 0.5f) {

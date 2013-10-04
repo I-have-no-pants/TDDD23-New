@@ -8,16 +8,16 @@ public class UpgradeableComponent : MonoBehaviour {
 	public GameObject myBase;
 	
 	// Called by the menu
-	public void Upgrade(Buildable building, TeamComponent team) {
+	public void Upgrade(BuildableComponent building, TeamComponent team) {
 
 		GameObject addon = Instantiate(building.gameObject,transform.position,transform.rotation) as GameObject;
 		addon.transform.parent = transform.parent;
 		
 		var baseObj = GetComponent<UpgradeableComponent>().myBase;
 		if (baseObj!=null) {
-			var baseObjAdd = baseObj.GetComponent<AddonComponent>();
+			var baseObjAdd = baseObj.GetComponent<BuildableComponent>();
 			if (baseObjAdd != null)
-				baseObjAdd.AddAddon(addon.GetComponent<AddonComponent>(),name);
+				baseObjAdd.AddAddon(addon.GetComponent<BuildableComponent>(),name);
 		}
 		
 		var myTeam = addon.GetComponent<TeamComponent>();

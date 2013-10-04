@@ -2,29 +2,21 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class FactoryComponent : AddonComponent {
-	
-	public IList Addons = new ArrayList();
-	
-	public string MyTeam{get;set;}
+public class FactoryComponent : DecoratorComponent {
 	
 	Transform spawnPosition;
 	
 	public float BaseSpawnTime = 10;
 	private float spawnTimeCounter;
-	
-	private TeamComponent myTeam;
-	
+		
 	// Use this for initialization
 	void Start () {
+		
+		InitDecoratorComponent();
 		
 		//Debug.Log("Spawnposition is " + this.transform.FindChild("SpawnPosition").name);
 		spawnPosition = this.transform.FindChild("SpawnPosition").transform;
 		spawnTimeCounter=BaseSpawnTime;
-		
-		addons = new SortedDictionary<string, AddonComponent>();
-		
-		myTeam = GetComponent<TeamComponent>();
 	}
 	
 	// Update is called once per frame
