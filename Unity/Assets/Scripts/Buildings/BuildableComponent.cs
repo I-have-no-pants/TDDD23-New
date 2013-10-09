@@ -14,8 +14,17 @@ public class BuildableComponent : MonoBehaviour {
 	public List<GameObject> AddonNodes;
 	
 	protected SortedDictionary<string,BuildableComponent> addons;
+	
+	
+	public UpgradeableComponent MyLocation { // Enable this again when we are dead.
+		set; get;
+	}
+		
 
-	protected TeamComponent myTeam;
+	public TeamComponent myTeam {
+		get;
+		private set;
+	}
 	
 	void Start() {
 		 InitBuildableComponent();
@@ -25,7 +34,7 @@ public class BuildableComponent : MonoBehaviour {
 	protected void InitBuildableComponent() {
 		addons = new SortedDictionary<string, BuildableComponent>();
 		myTeam = GetComponent<TeamComponent>();
-		if (myTeam && myTeam.MyTeam.CompareTo("TeamPlayer") != 0) {
+		if (myTeam && myTeam.MyTeam!=null && myTeam.MyTeam.CompareTo("TeamPlayer") != 0) {
 			
 			var enemy = GameObject.Find("Enemy").GetComponent<EnemyPlayer>();
 			
@@ -41,5 +50,7 @@ public class BuildableComponent : MonoBehaviour {
 		Debug.Log("Addon added!");
 		addons.Add(position,addon);
 	}
+	
+	
 	
 }

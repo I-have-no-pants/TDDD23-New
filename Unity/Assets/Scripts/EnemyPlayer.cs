@@ -54,12 +54,16 @@ public class EnemyPlayer : MonoBehaviour {
 								
 				BuildableComponent building = null;
 				
+				List<BuildableComponent> possibleBuildings = new List<BuildableComponent>();
+				
 				foreach (var u in menu.Buildings) {
 					var b = u.GetComponent<BuildableComponent>();
-					if (b != null && uprg.canBuild(b.Size) && Random.value<.25f) {
-						building = b;
+					if (b != null && uprg.canBuild(b.Size)) {
+						possibleBuildings.Add (b);
 					}
 				}
+				
+				building = possibleBuildings[Random.Range(0,possibleBuildings.Count-1)];
 				
 				
 				if (uprg!=null && building!=null) {

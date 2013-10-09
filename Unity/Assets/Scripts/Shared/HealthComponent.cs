@@ -7,7 +7,10 @@ public abstract  class HealthComponent : MonoBehaviour {
 	
 	protected GameManagerComponent gameManager;
 	
-	private TeamComponent myTeam;
+	protected TeamComponent myTeam;
+	
+	
+	protected BuildableComponent myBuilding;
 	
 	public string MyTeam {
 		get {
@@ -46,6 +49,7 @@ public abstract  class HealthComponent : MonoBehaviour {
 		gameManager = GameObject.Find("GameManager").GetComponent<GameManagerComponent>();
 		gameManager.Units.Add(this);
 		myTeam = GetComponent<TeamComponent>();
+		myBuilding = GetComponent<BuildableComponent>();
 	}
 	
 	

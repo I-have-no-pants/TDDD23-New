@@ -6,7 +6,28 @@ using System.Collections;
 /// </summary>
 public class TeamComponent : MonoBehaviour {
 	
-	public string MyTeam;
+	public string myTeam;
+	public string MyTeam {
+		get {
+			return myTeam;
+		}
+		set {
+			myTeam = value;
+			
+			Color c = Color.white;
+			if (myTeam.CompareTo("TeamPlayer")==0)
+				c = new Color(0,1,1);
+			else if (myTeam.CompareTo("TeamEnemy")==0)
+				c = Color.red;
+			
+				foreach(Renderer r in GetComponentsInChildren<Renderer>())
+					if (r!=null && r.material != null &&r.material.HasProperty("_Color") && r.material.GetColor("_Color")== Color.green)
+						r.material.SetColor("_Color",c);
+				
+				
+			
+		}
+	}
 	public string EnemyTeam;
 	
 }

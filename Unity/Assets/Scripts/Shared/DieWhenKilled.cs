@@ -11,6 +11,7 @@ public class DieWhenKilled : HealthComponent {
 	
 	private float damageTimer;
 	
+	
 	protected override void OnDeath ()
 	{
 		if (DeathEffect) {
@@ -18,6 +19,10 @@ public class DieWhenKilled : HealthComponent {
 			deatheffect.SetActive(true);
 			Destroy(deatheffect,DeathEffectLifeTime);
 		}
+		
+		if (myBuilding!=null && myBuilding.MyLocation != null)
+			myBuilding.MyLocation.NotifyBuildingKilled(myBuilding);
+		
 		gameManager.Units.Remove(this);
 		
 		Destroy(this.gameObject);

@@ -8,7 +8,7 @@ public class FactoryComponent : DecoratorComponent {
 	
 	public float BaseSpawnTime = 10;
 	private float spawnTimeCounter;
-		
+	
 	// Use this for initialization
 	void Start () {
 		
