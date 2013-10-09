@@ -7,8 +7,10 @@ public class UpgradeableComponent : MonoBehaviour {
 	
 	public GameObject myBase;
 	
+	private GUIHandler unit;
 	
 	void Start() {
+		unit = GameObject.FindObjectOfType(typeof(GUIHandler)) as  GUIHandler;
 	}
 	
 	// Called by the menu
@@ -56,6 +58,10 @@ public class UpgradeableComponent : MonoBehaviour {
 		if (ExactSize)
 			return size == maxSize;
 		return size <= maxSize;
+	}
+	
+	void OnMouseDown() {
+		unit.SelectedUnit = gameObject;
 	}
 	
 }

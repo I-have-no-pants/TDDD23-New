@@ -114,6 +114,8 @@
      <Compile Include="Assets\Scripts\Debug\MessageOnClick.cs" />
      <Compile Include="Assets\Scripts\Debug\SpawnOnClick.cs" />
      <Compile Include="Assets\Scripts\EnemyPlayer.cs" />
+     <Compile Include="Assets\Scripts\GUI\GUIHandler.cs" />
+     <Compile Include="Assets\Scripts\GUI\NonSelectable.cs" />
      <Compile Include="Assets\Scripts\GameManagerComponent.cs" />
      <Compile Include="Assets\Scripts\MainMenu\ChangeLevelOnClick.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerComponent.cs" />

@@ -10,8 +10,8 @@ public class WeaponComponentTrack : WeaponComponent {
 	
 	protected override void ProcessTarget() {
 	
-		if (target!=null && turret != null) {
-			turret.transform.LookAt(target.gameObject.transform,gameObject.transform.up);
+		if (Target!=null && turret != null) {
+			turret.transform.LookAt(Target.gameObject.transform,gameObject.transform.up);
 				
 		}
 		

@@ -25,6 +25,10 @@ public class DieWhenKilled : HealthComponent {
 		
 		gameManager.Units.Remove(this);
 		
+		gameObject.layer = 0; //Default
+		AstarPath.OnGraphsUpdated -= GetComponent<PathfindMovement>().OnGraphsUpdated;
+		AstarPath.active.UpdateGraphs(gameObject.collider.bounds);
+		
 		Destroy(this.gameObject);
 	}
 	

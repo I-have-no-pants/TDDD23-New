@@ -6,10 +6,9 @@ public class EnemyPlayer : MonoBehaviour {
 	
 	private float timer;
 	
-	private bool doonce = false;
+	private GameManagerComponent gameManager;
 	
-	public GameObject gameMenu;
-	private Upgrademenu menu; // So I can access all building types.
+	private bool doonce = false;
 	
 	private TeamComponent myTeam;
 	public GameObject EnemyObject;
@@ -19,7 +18,8 @@ public class EnemyPlayer : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		myTeam = EnemyObject.GetComponent<TeamComponent>();
-		menu = gameMenu.GetComponent<Upgrademenu>();
+	
+		gameManager = GameObject.Find("GameManager").GetComponent<GameManagerComponent>();
 		
 		foreach (GameObject t in GameObject.FindGameObjectsWithTag("TeamEnemyBuild")) {
 			var b = t.GetComponent<UpgradeableComponent>();
@@ -56,7 +56,7 @@ public class EnemyPlayer : MonoBehaviour {
 				
 				List<BuildableComponent> possibleBuildings = new List<BuildableComponent>();
 				
-				foreach (var u in menu.Buildings) {
+				foreach (var u in gameManager.Buildings) {
 					var b = u.GetComponent<BuildableComponent>();
 					if (b != null && uprg.canBuild(b.Size)) {
 						possibleBuildings.Add (b);

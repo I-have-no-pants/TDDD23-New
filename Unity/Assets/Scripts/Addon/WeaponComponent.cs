@@ -11,16 +11,24 @@ public class WeaponComponent : AddonComponent {
 	
 	private float reload;
 	
-	protected HealthComponent target;
+	private bool isActive;
+	
+	public HealthComponent target;
 	protected HealthComponent Target {
 		get {
 			return target;
 		}
 		set {
-			if (target == null && value != null)
-				myUnit.ActiveTurrets++;
-			//else if (target != null && value == null)
-			//	myUnit.ActiveTurrets--;
+			if(myUnit) {
+				if (target == null && value != null) {
+					myUnit.ActiveTurrets++;
+					isActive = true;
+				}
+				else if (target == null && isActive) {
+					isActive = false;
+					myUnit.ActiveTurrets--;
+				}
+			}
 			target = value;
 		}
 	}
@@ -39,9 +47,7 @@ public class WeaponComponent : AddonComponent {
 	public float maxAngle = 90;
 	
 	public Vector3 FiringAngle;
-	
-	
-	
+		
 	
 	void Start() {
 		InitWeaponComponent();
@@ -72,7 +78,7 @@ public class WeaponComponent : AddonComponent {
 				
 			} else {
 				reload = 0.1f; // Small delay so we don't spam findTarget();
-				target = null;
+				Target = null;
 				findTarget();
 				
 			}
@@ -89,7 +95,7 @@ public class WeaponComponent : AddonComponent {
 		if (muzzleBlast != null)
 			muzzleBlast.SetActive(true);
 		
-		Debug.Log(this.gameObject.name + " pew'd " + target.gameObject.name);
+		//Debug.Log(this.gameObject.name + " pew'd " + target.gameObject.name);
 	}
 	
 	protected bool ValidTarget(HealthComponent g) {
@@ -125,7 +131,7 @@ public class WeaponComponent : AddonComponent {
 	private void findTarget() {
 		foreach (HealthComponent h in gameManager.Units){
 			if (ValidTarget(h)) {
-				target = h;
+				Target = h;
 				break;
 			}
 		}

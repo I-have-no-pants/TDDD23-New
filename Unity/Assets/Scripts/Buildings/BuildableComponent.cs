@@ -9,11 +9,14 @@ public class BuildableComponent : MonoBehaviour {
 	public int Size;
 	public int Cost;
 	public string Name;
-	public string Description;
+	public string tooltip;
+	public Texture image;
 	
 	public List<GameObject> AddonNodes;
 	
 	protected SortedDictionary<string,BuildableComponent> addons;
+	
+	private GUIHandler unit;
 	
 	
 	public UpgradeableComponent MyLocation { // Enable this again when we are dead.
@@ -27,8 +30,7 @@ public class BuildableComponent : MonoBehaviour {
 	}
 	
 	void Start() {
-		 InitBuildableComponent();
-		
+		InitBuildableComponent();
 	}
 	
 	protected void InitBuildableComponent() {
@@ -43,6 +45,11 @@ public class BuildableComponent : MonoBehaviour {
 				enemy.PossiblePlaces.AddFirst (g.GetComponent<UpgradeableComponent>());
 			}
 		} 
+		
+		unit = GameObject.FindObjectOfType(typeof(GUIHandler)) as  GUIHandler;
+		
+		if(gameObject.layer == 8)
+			AstarPath.active.UpdateGraphs(gameObject.collider.bounds);
 	}
 	
 	
@@ -51,6 +58,8 @@ public class BuildableComponent : MonoBehaviour {
 		addons.Add(position,addon);
 	}
 	
-	
+	void OnMouseDown() {
+		unit.SelectedUnit = gameObject;
+	}
 	
 }

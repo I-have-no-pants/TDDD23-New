@@ -8,12 +8,19 @@ public class PathfindMovement : MonoBehaviour {
 	public Transform[] waypoints;
 	public bool foundEnemy = false;
 	
-	private int activeTurrets;
+	public int activeTurrets;
 	public int ActiveTurrets {
 		get {
 			return activeTurrets; 
 		}
 		set {
+			if (activeTurrets == 0 && value > 0) {
+				gameObject.layer = 8; //Obstacle
+				AstarPath.active.UpdateGraphs(gameObject.collider.bounds);
+			} else if (value == 0) {
+				gameObject.layer = 0; //Default
+				AstarPath.active.UpdateGraphs(gameObject.collider.bounds);
+			}
 			activeTurrets = value;
 			if (activeTurrets < 0)
 				activeTurrets = 0;
@@ -33,13 +40,15 @@ public class PathfindMovement : MonoBehaviour {
 	private float timer = 0f;
 	private CharacterController controller;
 	private float rotationSpeed = 0.1f;
-	
+	private GUIHandler unit;
 	
 	public void Start () {
 		seeker = GetComponent<Seeker>();
 		//Start a new path to the targetPosition, return the result to the OnPathComplete function
 		setTargetPosition();
 		controller = GetComponent<CharacterController>();
+		unit = GameObject.FindObjectOfType(typeof(GUIHandler)) as  GUIHandler;
+		AstarPath.OnGraphsUpdated += OnGraphsUpdated;
 	}
 	public void OnPathComplete (Path p) {
 		if (!p.error) {
@@ -49,7 +58,8 @@ public class PathfindMovement : MonoBehaviour {
 	public void setTargetPosition() {
 		if (!foundEnemy)
 			targetPosition = waypoints[waypointCounter].position;
-		seeker.StartPath (transform.position,targetPosition, OnPathComplete);
+		if (seeker.IsDone())
+			seeker.StartPath (transform.position,targetPosition, OnPathComplete);
 	}
 	public void FixedUpdate () {
 		if (path == null) {
@@ -69,16 +79,10 @@ public class PathfindMovement : MonoBehaviour {
 		//shooting = GetComponentInChildren<Sight>().shoot;
 		//Debug.LogWarning(activeTurrets);
 		if (activeTurrets == 0) {
-			timer += Time.fixedDeltaTime;
-			if (timer > 0.5f) {
-				setTargetPosition();
-				timer = 0f;
-			}
 			Vector3 dir = (path.vectorPath[currentWaypoint]-transform.position);
 			transform.Rotate(Vector3.up * AngleAroundAxis(transform.forward, (path.vectorPath[currentWaypoint] - transform.position), Vector3.up) * rotationSpeed);
 			dir = dir.normalized * speed;
 			controller.SimpleMove(dir);
-		//	transform.position = new Vector3(transform.position.x, controller.bounds.extents.y, transform.position.z);
 			//Check if we are close enough to the next waypoint
 			//If we are, proceed to follow the next waypoint
 			if (Vector3.Distance (transform.position,path.vectorPath[currentWaypoint]) < nextWaypointDistance) {
@@ -100,6 +104,14 @@ public class PathfindMovement : MonoBehaviour {
     	 // Return angle multiplied with 1 or -1
     	 return angle * (Vector3.Dot (axis, Vector3.Cross (dirA, dirB)) < 0 ? -1 : 1);
  	}
+	
+	public void OnGraphsUpdated (AstarPath script) {
+		setTargetPosition();
+	}
+	
+	void OnMouseDown() {
+		unit.SelectedUnit = gameObject;
+	}
 	
 	
 }
