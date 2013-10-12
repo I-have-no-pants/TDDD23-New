@@ -14,18 +14,23 @@ public class PathfindMovement : MonoBehaviour {
 			return activeTurrets; 
 		}
 		set {
-			if (activeTurrets == 0 && value > 0) {
-				gameObject.layer = 8; //Obstacle
-				AstarPath.active.UpdateGraphs(gameObject.collider.bounds);
-			} else if (value == 0) {
-				gameObject.layer = 0; //Default
-				AstarPath.active.UpdateGraphs(gameObject.collider.bounds);
-			}
+			
 			activeTurrets = value;
 			if (activeTurrets < 0)
 				activeTurrets = 0;
+			
+			if (!ShouldMove()) {
+				gameObject.layer = 8; //Obstacle
+				AstarPath.active.UpdateGraphs(gameObject.collider.bounds);
+			} else  {
+				gameObject.layer = 0; //Default
+				AstarPath.active.UpdateGraphs(gameObject.collider.bounds);
+			}
+			
 		}
 	}
+	
+	public int totalTurrets;
 	
 	private Seeker seeker;
 	//The calculated path
@@ -78,7 +83,7 @@ public class PathfindMovement : MonoBehaviour {
 		//Direction to the next waypoint
 		//shooting = GetComponentInChildren<Sight>().shoot;
 		//Debug.LogWarning(activeTurrets);
-		if (activeTurrets == 0) {
+		if (ShouldMove()) {
 			Vector3 dir = (path.vectorPath[currentWaypoint]-transform.position);
 			transform.Rotate(Vector3.up * AngleAroundAxis(transform.forward, (path.vectorPath[currentWaypoint] - transform.position), Vector3.up) * rotationSpeed);
 			dir = dir.normalized * speed;
@@ -111,6 +116,10 @@ public class PathfindMovement : MonoBehaviour {
 	
 	void OnMouseDown() {
 		unit.SelectedUnit = gameObject;
+	}
+	
+	private bool ShouldMove() {
+		return ActiveTurrets < totalTurrets / 2;
 	}
 	
 	

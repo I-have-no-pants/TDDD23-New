@@ -105,7 +105,6 @@ public class GUIHandler : MonoBehaviour {
 				foreach (GameObject g in buildings) {
 					var buildComponent = g.GetComponent<BuildableComponent>();
 					if (upgradeComponent.canBuild(buildComponent.Size)) {
-						content.text = buildComponent.name;
 						content.image = buildComponent.image;
 						content.tooltip = buildComponent.tooltip;
 						var pos = nextPosition(buttonPos,buildComponent.image);

@@ -31,6 +31,8 @@ public class DecoratorComponent : BuildableComponent {
 			var weaponScript = addon.GetComponent<AddonComponent>();
 			if (weaponScript != null) {
 				weaponScript.myUnit = root.GetComponent<PathfindMovement>();
+				if (weaponScript is WeaponComponent)
+					root.GetComponent<PathfindMovement>().totalTurrets++;
 				//Debug.Log(weaponScript.myUnit);
 			}
 		}
