@@ -6,6 +6,8 @@ public class AddonComponent : MonoBehaviour {
 	
 	//public List<GameObject> Addons;
 	
+	public int AdditionalHealth=0;
+	
 	public PathfindMovement myUnit {
 		get;
 		set;

@@ -65,7 +65,7 @@ public class Upgrademenu : MonoBehaviour {
 					
 					newElement.transform.parent = this.transform;
 					
-					newElement.transform.FindChild("Name").guiText.text = buildComponent.Name + " [ " + buildComponent.Cost + " MB ]";
+					//newElement.transform.FindChild("Name").guiText.text = buildComponent.Name + " [ " + buildComponent.Cost + " MB ]";
 					//newElement.transform.FindChild("Description").guiText.text = buildComponent.Description;
 					
 					if (buildComponent.Cost > player.Money)

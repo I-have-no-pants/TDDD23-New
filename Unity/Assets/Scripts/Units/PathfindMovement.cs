@@ -6,7 +6,7 @@ public class PathfindMovement : MonoBehaviour {
 	
 	public Vector3 targetPosition;
 	public Transform[] waypoints;
-	public bool foundEnemy = false;
+	public string Name;
 	
 	public int activeTurrets;
 	public int ActiveTurrets {
@@ -41,11 +41,11 @@ public class PathfindMovement : MonoBehaviour {
 	public float nextWaypointDistance = 3;
 	//The waypoint we are currently moving towards
 	private int currentWaypoint, waypointCounter = 0;
-	private bool shooting;
-	private float timer = 0f;
 	private CharacterController controller;
 	private float rotationSpeed = 0.1f;
 	private GUIHandler unit;
+	private float distanceFactor = 1f;
+	public float dps = 0f;
 	
 	public void Start () {
 		seeker = GetComponent<Seeker>();
@@ -61,12 +61,14 @@ public class PathfindMovement : MonoBehaviour {
 		}
 	}
 	public void setTargetPosition() {
-		if (!foundEnemy)
-			targetPosition = waypoints[waypointCounter].position;
+		var randomPos = Random.insideUnitCircle*nextWaypointDistance;
+		targetPosition.x = waypoints[waypointCounter].position.x + randomPos.x;
+		targetPosition.y = waypoints[waypointCounter].position.y;
+		targetPosition.z = waypoints[waypointCounter].position.z + randomPos.y;
 		if (seeker.IsDone())
 			seeker.StartPath (transform.position,targetPosition, OnPathComplete);
 	}
-	public void FixedUpdate () {
+	public void Update () {
 		if (path == null) {
 			//We have no path to move after yet
 			return;
@@ -74,8 +76,8 @@ public class PathfindMovement : MonoBehaviour {
 		if (currentWaypoint >= path.vectorPath.Count) {
 			//Reset the waypoint counter
 			currentWaypoint = 0;
-			if (!foundEnemy)
-				waypointCounter = (waypointCounter + 1) % waypoints.Length;
+			waypointCounter = (waypointCounter + 1) % waypoints.Length;
+			distanceFactor = waypoints[waypointCounter].GetComponent<Waypoint>().distanceFactor;
 			setTargetPosition();
 			return;
 		}
@@ -90,7 +92,8 @@ public class PathfindMovement : MonoBehaviour {
 			controller.SimpleMove(dir);
 			//Check if we are close enough to the next waypoint
 			//If we are, proceed to follow the next waypoint
-			if (Vector3.Distance (transform.position,path.vectorPath[currentWaypoint]) < nextWaypointDistance) {
+			if (currentWaypoint - 1 >= path.vectorPath.Count && Vector3.Distance (transform.position,path.vectorPath[currentWaypoint]) < nextWaypointDistance * distanceFactor ||
+				(Vector3.Distance (transform.position,path.vectorPath[currentWaypoint]) < nextWaypointDistance)) {
 				currentWaypoint++;
 				return;
 			}
@@ -119,7 +122,7 @@ public class PathfindMovement : MonoBehaviour {
 	}
 	
 	private bool ShouldMove() {
-		return ActiveTurrets < totalTurrets / 2;
+		return totalTurrets == 0 || ActiveTurrets < Mathf.Ceil(totalTurrets / 2.0f);
 	}
 	
 	

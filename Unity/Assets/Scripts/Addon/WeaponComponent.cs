@@ -109,7 +109,9 @@ public class WeaponComponent : AddonComponent {
 		if (g.MyTeam != myTeam.EnemyTeam)
 			return false;
 		
-		Vector3 dist = (g.gameObject.transform.position - gameObject.transform.position);
+		//Vector3 dist = (g.gameObject.transform.position - gameObject.transform.position);
+		Vector3 dist = (g.gameObject.collider.ClosestPointOnBounds(gameObject.transform.position) - gameObject.transform.position);
+		
 			
 		if (dist.magnitude > Range)
 			return false;

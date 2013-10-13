@@ -32,12 +32,16 @@ public abstract  class HealthComponent : MonoBehaviour {
 			return health;
 		}
 		set {
-			if (value != 0)
+			if (value < health)
 				OnDamage (value);
 			
 			health =value;
 			if (health <= 0) {
 				IsDead=true;
+				if (gameObject.GetComponent<BuildableComponent>())
+					gameManager.buildingsDestroyed++;
+				else if (MyTeam == "TeamEnemy")
+					gameManager.unitsDestroyed++;
 				OnDeath ();
 			}
 		}

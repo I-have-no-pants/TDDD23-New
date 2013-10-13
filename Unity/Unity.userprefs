@@ -1,38 +1,9 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Scripts\Shared\RotateSinus.cs">
-    <Files>
-      <File FileName="Assets\Scripts\Buildings\DecoratorComponent.cs" Line="6" Column="44" />
-      <File FileName="Assets\Scripts\Player\UpgradeableComponent.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Buildings\BuildableComponent.cs" Line="19" Column="18" />
-      <File FileName="Assets\Scripts\Shared\TeamComponent.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Shared\DieWhenKilled.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Shared\HealthComponent.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\EnemyPlayer.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\GameManagerComponent.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Units\PathfindMovement.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Addon\WeaponComponent.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Addon\AddonComponent.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Addon\WeaponComponentTrack.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Player\PlayerComponent.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\GUI\GUIHandler.cs" Line="1" Column="1" />
-      <File FileName="Assets\Scripts\Buildings\FactoryComponent.cs" Line="5" Column="46" />
-      <File FileName="Assets\Scripts\Shared\RotateSinus.cs" Line="27" Column="1" />
-    </Files>
+  <MonoDevelop.Ide.Workbench>
     <Pads>
       <Pad Id="ProjectPad">
-        <State expanded="True">
-          <Node name="Assembly-CSharp" expanded="True">
-            <Node name="Assets" expanded="True">
-              <Node name="Scripts" expanded="True">
-                <Node name="Buildings" expanded="True" />
-                <Node name="Shared" expanded="True">
-                  <Node name="RotateSinus.cs" selected="True" />
-                </Node>
-              </Node>
-            </Node>
-          </Node>
-        </State>
+        <State expanded="True" selected="True" />
       </Pad>
       <Pad Id="ClassPad">
         <State expanded="True" selected="True" />

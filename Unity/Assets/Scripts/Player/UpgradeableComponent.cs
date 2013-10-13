@@ -4,32 +4,40 @@ using System.Collections;
 public class UpgradeableComponent : MonoBehaviour {
 	public int maxSize;
 	public bool ExactSize = false;
+	public Transform[] waypoints;
 	
 	public GameObject myBase;
 	
 	private GUIHandler unit;
 	
+	private TeamComponent myTeam;
+	
 	void Start() {
 		unit = GameObject.FindObjectOfType(typeof(GUIHandler)) as  GUIHandler;
+		myTeam = GetComponent<TeamComponent>();
 	}
 	
 	// Called by the menu
 	public void Upgrade(BuildableComponent building, TeamComponent team) {
 
 		GameObject addon = Instantiate(building.gameObject,transform.position,transform.rotation) as GameObject;
+		addon.name = building.Name;
 		addon.transform.parent = transform.parent;
+		if (addon.GetComponent<FactoryComponent>())
+			addon.GetComponent<FactoryComponent>().waypoints = waypoints;
 		
-		var baseObj = GetComponent<UpgradeableComponent>().myBase;
-		if (baseObj!=null) {
-			var baseObjAdd = baseObj.GetComponent<BuildableComponent>();
-			if (baseObjAdd != null)
+		if (myBase!=null) {
+			var baseObjAdd = myBase.GetComponent<BuildableComponent>();
+			if (baseObjAdd != null) {
 				baseObjAdd.AddAddon(addon.GetComponent<BuildableComponent>(),name);
+				addon.GetComponent<BuildableComponent>().MyParent = baseObjAdd;
+			}
 		}
 		
-		var myTeam = addon.GetComponent<TeamComponent>();
-		if (myTeam) {
-			myTeam.MyTeam = team.MyTeam;
-			myTeam.EnemyTeam = team.EnemyTeam;
+		var myTeam2 = addon.GetComponent<TeamComponent>();
+		if (myTeam2) {
+			myTeam2.MyTeam = team.MyTeam;
+			myTeam2.EnemyTeam = team.EnemyTeam;
 		}
 		
 		//Destroy(Target.gameObject);
@@ -60,8 +68,9 @@ public class UpgradeableComponent : MonoBehaviour {
 		return size <= maxSize;
 	}
 	
-	void OnMouseDown() {
-		unit.SelectedUnit = gameObject;
+	void OnMouseDown() {	
+		if (myTeam == null || myTeam.MyTeam=="TeamPlayer")
+			unit.SelectedUnit = gameObject;
 	}
 	
 }

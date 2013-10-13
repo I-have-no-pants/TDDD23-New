@@ -1,8 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ChangeLevelOnClick : MonoBehaviour {
-
+public class MenuCamera : MonoBehaviour {
+	
+	public Transform Target;
+	
 	// Use this for initialization
 	void Start () {
 	
@@ -12,11 +14,4 @@ public class ChangeLevelOnClick : MonoBehaviour {
 	void Update () {
 	
 	}
-	
-	
-	void OnMouseDown() {
-        Debug.Log("Clicked GUI Element");
-		Application.LoadLevel("Versus");
-    }
-	
 }

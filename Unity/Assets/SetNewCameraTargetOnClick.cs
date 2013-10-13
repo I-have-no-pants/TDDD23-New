@@ -1,8 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class ChangeLevelOnClick : MonoBehaviour {
-
+public class SetNewCameraTargetOnClick : MonoBehaviour {
+	
+	public GameObject Target;
+	
+	public GameObject camera;
+	
 	// Use this for initialization
 	void Start () {
 	
@@ -13,10 +17,11 @@ public class ChangeLevelOnClick : MonoBehaviour {
 	
 	}
 	
-	
 	void OnMouseDown() {
         Debug.Log("Clicked GUI Element");
-		Application.LoadLevel("Versus");
+	//	Application.LoadLevel("Versus");
+		//camera.transform.position.
     }
 	
 }
+

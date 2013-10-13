@@ -30,4 +30,11 @@ public class TeamComponent : MonoBehaviour {
 	}
 	public string EnemyTeam;
 	
+	void Start() {
+		if (MyTeam == "TeamEnemy") {
+			
+			
+		}
+	}
+	
 }
