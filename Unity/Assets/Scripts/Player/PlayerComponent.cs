@@ -6,6 +6,13 @@ using System.Collections;
 /// </summary>
 public class PlayerComponent : MonoBehaviour {
 	
+	
+	static private PlayerComponent instance;
+	static public PlayerComponent GetInstance() {
+		return instance;
+	}
+	
+	
 	public int StartMoney;
 	
 	private int money;
@@ -30,6 +37,8 @@ public class PlayerComponent : MonoBehaviour {
 	void Start () {
 		Money = StartMoney;
 		MyTeam = GetComponent<TeamComponent>();
+		instance = this;
+		
 		
 		BaseSpawnPosition.GetComponent<UpgradeableComponent>().Upgrade(BaseObject.GetComponent<BuildableComponent>(),MyTeam);
 		

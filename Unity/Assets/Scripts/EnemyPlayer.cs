@@ -4,6 +4,12 @@ using System.Collections.Generic;
 
 public class EnemyPlayer : MonoBehaviour {
 	
+	
+	static private EnemyPlayer instance;
+	static public EnemyPlayer GetInstance() {
+		return instance;
+	}
+	
 	private float timer;
 	
 	private GameManagerComponent gameManager;
@@ -26,14 +32,14 @@ public class EnemyPlayer : MonoBehaviour {
 	void Start () {
 		myTeam = EnemyObject.GetComponent<TeamComponent>();
 	
-		gameManager = GameObject.Find("GameManager").GetComponent<GameManagerComponent>();
+		gameManager = GameManagerComponent.GetInstance();
 		
 		foreach (GameObject t in StartBuildingPlaces) {
 			var b = t.GetComponent<UpgradeableComponent>();
 			if (b)
 				PossiblePlaces.AddFirst(b);
 		}
-		
+		instance = this;
 		
 		BaseSpawnPosition.GetComponent<UpgradeableComponent>().Upgrade(BaseObject.GetComponent<BuildableComponent>(),myTeam);
 		

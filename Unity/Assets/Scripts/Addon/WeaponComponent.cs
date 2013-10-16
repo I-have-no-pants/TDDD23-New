@@ -55,7 +55,8 @@ public class WeaponComponent : AddonComponent {
 	
 	protected void InitWeaponComponent() {
 		InitAddonComponent();
-		gameManager = GameObject.Find("GameManager").GetComponent<GameManagerComponent>();
+		//gameManager = GameObject.Find("GameManager").GetComponent<GameManagerComponent>();
+		gameManager = GameManagerComponent.GetInstance();
 		up = Vector3.up;
 	}
 	

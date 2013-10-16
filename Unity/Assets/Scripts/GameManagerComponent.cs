@@ -5,6 +5,11 @@ using System.Collections.Generic;
 
 public class GameManagerComponent : MonoBehaviour {
 	
+	static private GameManagerComponent instance;
+	static public GameManagerComponent GetInstance() {
+		return instance;
+	}
+	
 	public HashSet<HealthComponent> Units;
 	
 	public List<GameObject> Buildings;
@@ -16,5 +21,6 @@ public class GameManagerComponent : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		Units = new HashSet<HealthComponent>();
+		instance=this;
 	}
 }

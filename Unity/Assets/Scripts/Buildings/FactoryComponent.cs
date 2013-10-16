@@ -15,7 +15,7 @@ public class FactoryComponent : DecoratorComponent {
 	}
 	
 	public float radius = 3;
-	public Transform[] waypoints;
+	public List<Transform> waypoints;
 	public float spawnTimeCounter {
 		get;
 		private set;
@@ -55,7 +55,9 @@ public class FactoryComponent : DecoratorComponent {
 		}
 		
 		var spawn = Decorate(null,spawnPosition, null);
-		spawn.GetComponent<PathfindMovement>().waypoints = waypoints;
+		
+		foreach (Transform w in waypoints)
+			spawn.GetComponent<PathfindMovement>().waypoints.Add(w.position);
 		
 		if (myTeam != null) {
 			foreach (var t in spawn.GetComponentsInChildren<TeamComponent>()){

@@ -1,10 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+using System.Collections.Generic;
 public class UpgradeableComponent : MonoBehaviour {
 	public int maxSize;
 	public bool ExactSize = false;
-	public Transform[] waypoints;
+	public List<Transform> waypoints;
 	
 	public GameObject myBase;
 	
