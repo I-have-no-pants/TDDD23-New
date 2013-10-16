@@ -45,17 +45,17 @@ public class BuildableComponent : MonoBehaviour {
 		myGameManager = GameObject.Find("GameManager").GetComponent<GameManagerComponent>();
 		addons = new SortedDictionary<string, BuildableComponent>();
 		myTeam = GetComponent<TeamComponent>();
-		if (myTeam && myTeam.MyTeam!=null && myTeam.MyTeam.CompareTo("TeamPlayer") != 0) {
-			
-			var enemy = GameObject.Find("Enemy").GetComponent<EnemyPlayer>();
-			
-			foreach (GameObject g in AddonNodes) {
-				g.SetActive(false);
-				enemy.PossiblePlaces.AddFirst (g.GetComponent<UpgradeableComponent>());
-				Debug.Log("Added place to the enemy");
-			}
-		} 
 		
+			
+		var enemy = GameObject.Find("Enemy").GetComponent<EnemyPlayer>();
+		
+		foreach (GameObject g in AddonNodes) {
+			//g.SetActive(false);
+			g.GetComponent<TeamComponent>().Copy(myTeam);
+			if (myTeam && myTeam.MyTeam!=null && myTeam.MyTeam.CompareTo("TeamPlayer") != 0)
+				enemy.PossiblePlaces.AddFirst (g.GetComponent<UpgradeableComponent>());
+		}
+
 		unit = GameObject.FindObjectOfType(typeof(GUIHandler)) as  GUIHandler;
 		
 		if(gameObject.layer == 8)

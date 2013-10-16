@@ -59,7 +59,7 @@ public class EnemyPlayer : MonoBehaviour {
 			
 			// Crappy random function for selecting random thing
 			foreach (var i in PossiblePlaces) {
-				if (Random.value<.25f){ //  && i.gameObject.activeInHierarchy
+				if (Random.value<.25f && i.gameObject.activeInHierarchy) {
 					uprg = i;
 					break;
 				}
@@ -81,7 +81,7 @@ public class EnemyPlayer : MonoBehaviour {
 					}
 				}
 				if (possibleBuildings.Count > 0)
-					building = possibleBuildings[Random.Range(0,possibleBuildings.Count-1)];
+					building = possibleBuildings[Random.Range(0,possibleBuildings.Count)];
 				
 				
 				if (uprg!=null && building!=null) {

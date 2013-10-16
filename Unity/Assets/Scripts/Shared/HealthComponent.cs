@@ -9,6 +9,9 @@ public abstract  class HealthComponent : MonoBehaviour {
 	
 	protected TeamComponent myTeam;
 	
+	public int regenPer10Second;
+	private float regenTimer = 10f;
+	
 	
 	protected BuildableComponent myBuilding;
 	
@@ -35,7 +38,7 @@ public abstract  class HealthComponent : MonoBehaviour {
 			if (value < health)
 				OnDamage (value);
 			
-			health =value;
+			health=Mathf.Min(MaxHealth,value);
 			if (health <= 0) {
 				IsDead=true;
 				if (gameObject.GetComponent<BuildableComponent>())
@@ -56,6 +59,14 @@ public abstract  class HealthComponent : MonoBehaviour {
 		myBuilding = GetComponent<BuildableComponent>();
 	}
 	
+	void Update() {
+		if (regenTimer<0) {
+			Health+=regenPer10Second;
+			regenTimer=10;
+		} else
+			regenTimer-=Time.deltaTime;
+				
+	}
 	
 	protected abstract void OnDeath();
 	protected abstract void OnDamage(int damage);

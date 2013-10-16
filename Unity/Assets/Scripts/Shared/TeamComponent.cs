@@ -20,9 +20,17 @@ public class TeamComponent : MonoBehaviour {
 			else if (myTeam.CompareTo("TeamEnemy")==0)
 				c = Color.red;
 			
-				foreach(Renderer r in GetComponentsInChildren<Renderer>())
+			if (GetComponent<UpgradeableComponent>()!=null && (myTeam.CompareTo("TeamEnemy")==0))
+				foreach(Transform r in transform) {
+					r.gameObject.SetActive(false);
+				}
+			else
+		
+				foreach(Renderer r in GetComponentsInChildren<Renderer>()) {
 					if (r!=null && r.material != null &&r.material.HasProperty("_Color") && r.material.GetColor("_Color")== Color.green)
 						r.material.SetColor("_Color",c);
+					
+				}
 				
 				
 			
@@ -35,6 +43,12 @@ public class TeamComponent : MonoBehaviour {
 			
 			
 		}
+	}
+	
+	public void Copy(TeamComponent c) {
+		MyTeam = c.MyTeam;
+		EnemyTeam = c.EnemyTeam;
+		Debug.Log ("Copy team from " + c.MyTeam);
 	}
 	
 }
