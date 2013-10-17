@@ -13,6 +13,8 @@ public class WeaponComponent : AddonComponent {
 	
 	private bool isActive;
 	
+	private AudioSource mySound;
+	
 	public HealthComponent target;
 	protected HealthComponent Target {
 		get {
@@ -58,6 +60,8 @@ public class WeaponComponent : AddonComponent {
 		//gameManager = GameObject.Find("GameManager").GetComponent<GameManagerComponent>();
 		gameManager = GameManagerComponent.GetInstance();
 		up = Vector3.up;
+		
+		mySound = GetComponent<AudioSource>();
 	}
 	
 	// Update is called once per frame
@@ -95,6 +99,9 @@ public class WeaponComponent : AddonComponent {
 		target.Health-=Damage;
 		if (muzzleBlast != null)
 			muzzleBlast.SetActive(true);
+		
+		if (mySound!=null && !mySound.isPlaying)
+			mySound.Play();
 		
 		//Debug.Log(this.gameObject.name + " pew'd " + target.gameObject.name);
 	}

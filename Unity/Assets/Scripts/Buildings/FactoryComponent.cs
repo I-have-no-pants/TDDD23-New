@@ -10,9 +10,14 @@ public class FactoryComponent : DecoratorComponent {
 	
 	public float CalculatedSpawnTime {
 		get {
-			return BaseSpawnTime + this.addons.Count;
+			int time = 0;
+			foreach (BuildableComponent b in this) {
+				time += 1;
+			}
+			return BaseSpawnTime + time;
 		}
 	}
+	
 	
 	public float radius = 3;
 	public List<Transform> waypoints;

@@ -93,7 +93,7 @@ public class RTSCameraMovement : MonoBehaviour
 		transform.Translate(0,-(transform.position.y - CurrentZoom)*Time.deltaTime, 0);
 		//Debug.Log (transform.position.y + CurrentZoom);
 		//transform.Translate(0,CurrentZoom, 0);
-		MyCamera.transform.Rotate(-MyCamera.transform.eulerAngles.x + (InitRotation.x + CurrentZoom * ZoomRotation),0,0);
+		MyCamera.transform.Rotate((-MyCamera.transform.eulerAngles.x + (InitRotation.x + CurrentZoom * ZoomRotation))*Time.deltaTime,0,0);
 			
 		}
 		

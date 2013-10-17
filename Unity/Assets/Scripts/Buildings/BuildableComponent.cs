@@ -4,7 +4,9 @@ using System.Collections;
 using System.Collections.Generic;
 
 
-public class BuildableComponent : MonoBehaviour {
+public class BuildableComponent : MonoBehaviour, IEnumerable {
+	
+	public GameObject spawnEffect;
 	
 	public int Size;
 	public int Cost;
@@ -60,6 +62,16 @@ public class BuildableComponent : MonoBehaviour {
 		
 		if(gameObject.layer == 8)
 			AstarPath.active.UpdateGraphs(gameObject.collider.bounds);
+		
+		SpawnEffect();
+		
+	}
+	
+	public void SpawnEffect() {
+		if(spawnEffect!=null) {
+			GameObject spawn = Instantiate(spawnEffect,transform.position,transform.rotation) as GameObject;
+			Destroy(spawn,2);
+		}
 	}
 	
 	
@@ -70,6 +82,24 @@ public class BuildableComponent : MonoBehaviour {
 	
 	void OnMouseDown() {
 		unit.SelectedUnit = gameObject;
+		
+		Debug.Log (this.calculateTotalCost());
 	}
 	
+	public int calculateTotalCost() {
+		int cost = 0;
+		foreach (BuildableComponent b in this) {
+			cost += Cost;
+		}
+		return cost;
+	}
+	
+	public IEnumerator GetEnumerator ()
+	{
+		yield return this;
+		if (addons!=null)
+			foreach (BuildableComponent b in addons.Values)
+				foreach(BuildableComponent b2 in b)
+					yield return b2;
+	}
 }

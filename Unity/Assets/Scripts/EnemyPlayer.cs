@@ -63,13 +63,20 @@ public class EnemyPlayer : MonoBehaviour {
 			
 			UpgradeableComponent uprg = null;
 			
-			// Crappy random function for selecting random thing
-			foreach (var i in PossiblePlaces) {
-				if (Random.value<.25f && i.gameObject.activeInHierarchy) {
-					uprg = i;
-					break;
-				}
+			if (PossiblePlaces.Count == 0) {
+				// Sell and rebuild!
 				
+				
+			} else {
+			
+				// Crappy random function for selecting random thing
+				foreach (var i in PossiblePlaces) {
+					if (Random.value<.25f && i.gameObject.activeInHierarchy) {
+						uprg = i;
+						break;
+					}
+					
+				}
 			}
 			
 			
