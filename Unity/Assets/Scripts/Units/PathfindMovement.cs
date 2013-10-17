@@ -48,7 +48,7 @@ public class PathfindMovement : MonoBehaviour {
 	//The waypoint we are currently moving towards
 	private int currentWaypoint, waypointCounter = 0;
 	private CharacterController controller;
-	private float rotationSpeed = 0.1f;
+	public float rotationSpeed = 0.1f;
 	private GUIHandler unit;
 	private float distanceFactor = 1f;
 	public float dps = 0f;
