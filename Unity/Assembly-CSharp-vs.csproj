@@ -105,6 +105,7 @@
      <Compile Include="Assets\AstarPathfindingProject\Utilities\SizeProfiler.cs" />
      <Compile Include="Assets\AstarPathfindingProject\Utilities\UnityReferenceHelper.cs" />
      <Compile Include="Assets\AstarPathfindingProject\changelog.cs" />
+     <Compile Include="Assets\ExitGame.cs" />
      <Compile Include="Assets\GameOverWhenKilled.cs" />
      <Compile Include="Assets\MenuCamera.cs" />
      <Compile Include="Assets\ScaleSinus.cs" />
@@ -120,7 +121,9 @@
      <Compile Include="Assets\Scripts\GUI\GUIHandler.cs" />
      <Compile Include="Assets\Scripts\GUI\NonSelectable.cs" />
      <Compile Include="Assets\Scripts\GameManagerComponent.cs" />
+     <Compile Include="Assets\Scripts\MainMenu\CameraSlide.cs" />
      <Compile Include="Assets\Scripts\MainMenu\ChangeLevelOnClick.cs" />
+     <Compile Include="Assets\Scripts\MainMenu\MoveCamera.cs" />
      <Compile Include="Assets\Scripts\Player\PlayerComponent.cs" />
      <Compile Include="Assets\Scripts\Player\RTSCameraClick.cs" />
      <Compile Include="Assets\Scripts\Player\RTSCameraMovement.cs" />

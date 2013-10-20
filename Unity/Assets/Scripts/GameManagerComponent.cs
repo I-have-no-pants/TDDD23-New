@@ -16,11 +16,12 @@ public class GameManagerComponent : MonoBehaviour {
 	
 	//Score Screen
 	public bool gameOver, winner = false;
-	public int unitsDestroyed, unitsBuilt, buildingsDestroyed = 0;
+	public int unitsDestroyed, unitsBuilt, buildingsDestroyed, mostExpensiveUnit = 0;
 	
 	// Use this for initialization
 	void Start () {
 		Units = new HashSet<HealthComponent>();
 		instance=this;
 	}
+	
 }

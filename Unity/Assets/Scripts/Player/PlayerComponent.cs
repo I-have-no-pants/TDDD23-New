@@ -33,12 +33,17 @@ public class PlayerComponent : MonoBehaviour {
 	
 	private float timer = 0f;
 	
+	public int IncomePerSecond {
+		private set;
+		get;
+	}
+	
 	// Use this for initialization
 	void Start () {
 		Money = StartMoney;
 		MyTeam = GetComponent<TeamComponent>();
 		instance = this;
-		
+		IncomePerSecond = 3;
 		
 		BaseSpawnPosition.GetComponent<UpgradeableComponent>().Upgrade(BaseObject.GetComponent<BuildableComponent>(),MyTeam);
 		
@@ -46,8 +51,8 @@ public class PlayerComponent : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (timer >= 5f) {
-			Money += 15;
+		if (timer >= 1f) {
+			Money += IncomePerSecond;
 			timer = 0f;
 		}
 		timer += Time.deltaTime;

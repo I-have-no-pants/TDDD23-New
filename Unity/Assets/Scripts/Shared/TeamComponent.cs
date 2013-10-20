@@ -13,8 +13,16 @@ public class TeamComponent : MonoBehaviour {
 		}
 		set {
 			myTeam = value;
+			Colorize();
 			
-			Color c = Color.white;
+				
+				
+			
+		}
+	}
+	
+	public void Colorize() {
+		Color c = Color.white;
 			if (myTeam.CompareTo("TeamPlayer")==0)
 				c = new Color(0,1,1);
 			else if (myTeam.CompareTo("TeamEnemy")==0)
@@ -29,18 +37,12 @@ public class TeamComponent : MonoBehaviour {
 					if (r!=null && r.material != null &&r.material.HasProperty("_Color") && r.material.GetColor("_Color")== Color.green)
 						r.material.SetColor("_Color",c);
 				}
-				
-				
-			
-		}
 	}
+	
 	public string EnemyTeam;
 	
 	void Start() {
-		if (MyTeam == "TeamEnemy") {
-			
-			
-		}
+		Colorize();
 	}
 	
 	public void Copy(TeamComponent c) {

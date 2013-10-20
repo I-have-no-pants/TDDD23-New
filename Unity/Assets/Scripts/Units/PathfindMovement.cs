@@ -135,7 +135,8 @@ public class PathfindMovement : MonoBehaviour {
 	
 			//Reset the waypoint counter
 			currentWaypoint = 0;
-			waypointCounter = (waypointCounter + 1) % waypoints.Count;
+			if (waypointCounter < waypoints.Count - 1)
+				waypointCounter++;
 			setTargetPosition();
 			return;
 		}

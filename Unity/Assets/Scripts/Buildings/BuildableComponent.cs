@@ -87,11 +87,11 @@ public class BuildableComponent : MonoBehaviour, IEnumerable {
 	}
 	
 	public int calculateTotalCost() {
-		int cost = 0;
+		int totalCost = 0;
 		foreach (BuildableComponent b in this) {
-			cost += Cost;
+			totalCost += b.Cost;
 		}
-		return cost;
+		return totalCost;
 	}
 	
 	public IEnumerator GetEnumerator ()

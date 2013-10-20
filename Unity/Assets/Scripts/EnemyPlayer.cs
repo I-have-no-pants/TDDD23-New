@@ -28,6 +28,10 @@ public class EnemyPlayer : MonoBehaviour {
 	public GameObject BaseSpawnPosition;
 	public GameObject BaseObject;
 	
+	public Vector2 InitialTimeBetweenBuild; // 1,2
+	public Vector2 TimeBetweenBuild; // 2,6
+	public float BuildingPredicability; // 0.25f
+
 	// Use this for initialization
 	void Start () {
 		myTeam = EnemyObject.GetComponent<TeamComponent>();
@@ -52,9 +56,9 @@ public class EnemyPlayer : MonoBehaviour {
 	
 		if (timer<=0) {
 			if (Time.timeSinceLevelLoad < 45)
-				timer = Random.Range(1,2);
+				timer = Random.Range(InitialTimeBetweenBuild.x,InitialTimeBetweenBuild.y);
 			else
-				timer = Random.Range(2,6);
+				timer = Random.Range(TimeBetweenBuild.x,TimeBetweenBuild.y);
 			
 			//Money+=10;
 			/*
@@ -71,7 +75,7 @@ public class EnemyPlayer : MonoBehaviour {
 			
 				// Crappy random function for selecting random thing
 				foreach (var i in PossiblePlaces) {
-					if (Random.value<.25f && i.gameObject.activeInHierarchy) {
+					if (Random.value<BuildingPredicability && i.gameObject.activeInHierarchy) {
 						uprg = i;
 						break;
 					}
@@ -93,6 +97,8 @@ public class EnemyPlayer : MonoBehaviour {
 						possibleBuildings.Add (b);
 					}
 				}
+				
+				
 				if (possibleBuildings.Count > 0)
 					building = possibleBuildings[Random.Range(0,possibleBuildings.Count)];
 				

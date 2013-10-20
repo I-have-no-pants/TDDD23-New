@@ -72,7 +72,11 @@ public class FactoryComponent : DecoratorComponent {
 			
 		}
 		
-		
+		if (myTeam.MyTeam == "TeamPlayer") {
+			var factoryCost = calculateTotalCost();
+			if (gameManager.mostExpensiveUnit < factoryCost)
+				gameManager.mostExpensiveUnit = factoryCost;
+		}
 		
 		// Set team of the newly spawned thingy
 

@@ -9,6 +9,7 @@ public class RTSCameraMovement : MonoBehaviour
 {
 	
 	public float ScrollSpeed = 25f;
+	private float previousScrollSpeed = 0f;
 	public float ScrollEdge = 0.01f;
 	public float MobileSpeed = 0.1f;
 	private int HorizontalScroll = 1;
@@ -21,6 +22,8 @@ public class RTSCameraMovement : MonoBehaviour
 	public float ZoomRotation = 1;
 	private Vector3 InitPos;
 	private Vector3 InitRotation;
+	
+	public float KeyboardZoomSpeed;
 	
 	public float RotateSpeed;
 	
@@ -35,6 +38,7 @@ public class RTSCameraMovement : MonoBehaviour
 	{
 		InitPos = transform.position;
 		InitRotation = MyCamera.transform.eulerAngles;
+		previousScrollSpeed = ScrollSpeed;
 	}
 	
 	// Update is called once per frame
@@ -49,22 +53,22 @@ public class RTSCameraMovement : MonoBehaviour
 			transform.Translate (transform.forward * Time.deltaTime * PanSpeed * (Input.mousePosition.y - Screen.height * 0.5f) / (Screen.height * 0.5f), Space.World);
      
 		} else {
-			if (Input.GetKey ("d") || Input.mousePosition.x >= Screen.width * (1 - ScrollEdge)) {
+			if (Input.GetAxis("Horizontal") > 0 || Input.mousePosition.x >= Screen.width * (1 - ScrollEdge)) {
 				transform.Translate (transform.right * Time.deltaTime * ScrollSpeed, Space.World);
-			} else if (Input.GetKey ("a") || Input.mousePosition.x <= Screen.width * ScrollEdge) {
+			} else if (Input.GetAxis("Horizontal") < 0 || Input.mousePosition.x <= Screen.width * ScrollEdge) {
 				transform.Translate (transform.right * Time.deltaTime * -ScrollSpeed, Space.World);
 			}
            
-			if (Input.GetKey ("w") || Input.mousePosition.y >= Screen.height * (1 - ScrollEdge)) {
+			if (Input.GetAxis("Vertical") > 0 || Input.mousePosition.y >= Screen.height * (1 - ScrollEdge)) {
 				transform.Translate (transform.forward * Time.deltaTime * ScrollSpeed, Space.World);
-			} else if (Input.GetKey ("s") || Input.mousePosition.y <= Screen.height * ScrollEdge) {
+			} else if (Input.GetAxis("Vertical") < 0  || Input.mousePosition.y <= Screen.height * ScrollEdge) {
 				transform.Translate (transform.forward * Time.deltaTime * -ScrollSpeed, Space.World);
 			}
 		}
 		
-		if (Input.GetKey("q")) {
+		if (Input.GetAxis("Rotate") < 0) {
 			transform.Rotate(new Vector3(0,RotateSpeed*Time.deltaTime,0));
-		} else if (Input.GetKey("e")) {
+		} else if (Input.GetAxis("Rotate") > 0) {
 			transform.Rotate(new Vector3(0,-RotateSpeed*Time.deltaTime,0));
 		}
         
@@ -78,15 +82,25 @@ public class RTSCameraMovement : MonoBehaviour
 			transform.Translate (-touchDeltaPosition.x * MobileSpeed, 
 						-touchDeltaPosition.y * MobileSpeed, 0);
 		}
-       
-		//ZOOM IN/OUT
+       	// Increase scroll speed.
+		if (Input.GetAxis("Boost") > 0) {
+			if (previousScrollSpeed == ScrollSpeed) 
+					ScrollSpeed = 50f;
+		} else       
+			ScrollSpeed = previousScrollSpeed;
 		
-		if (Input.GetKey(KeyCode.LeftShift)) {
-			
-			transform.Rotate(new Vector3(0,Input.GetAxis ("Mouse ScrollWheel") * Time.deltaTime * MouseRotateSpeed,0));
-		} else {
-       
-		CurrentZoom -= Input.GetAxis ("Mouse ScrollWheel") * Time.deltaTime * 1000 * ZoomZpeed;
+		//ZOOM IN/OUT
+		if (Input.GetKey(KeyCode.LeftControl)) {
+			transform.Rotate(new Vector3(0,Input.GetAxis ("Zoom") * Time.deltaTime * MouseRotateSpeed,0));
+		}
+		
+		if (Input.GetAxis ("Zoom Key") < 0) {
+			CurrentZoom  -= Time.deltaTime * KeyboardZoomSpeed * ZoomZpeed;
+		} else if (Input.GetAxis ("Zoom Key") > 0) {
+			CurrentZoom  += Time.deltaTime * KeyboardZoomSpeed * ZoomZpeed;
+		}
+		
+		CurrentZoom -= Input.GetAxis ("Zoom") * Time.deltaTime * 1000 * ZoomZpeed;
        
 		CurrentZoom = Mathf.Clamp (CurrentZoom, ZoomRange.x, ZoomRange.y);
        
@@ -95,7 +109,7 @@ public class RTSCameraMovement : MonoBehaviour
 		//transform.Translate(0,CurrentZoom, 0);
 		MyCamera.transform.Rotate((-MyCamera.transform.eulerAngles.x + (InitRotation.x + CurrentZoom * ZoomRotation))*Time.deltaTime,0,0);
 			
-		}
+		
 		
 		
 		// Map bounds
