@@ -46,8 +46,6 @@ public class FactoryComponent : DecoratorComponent {
 			// Add some unit limit check here?
 			spawnTimeCounter=0;
 			Spawn ();
-			if (myTeam.MyTeam == "TeamPlayer")
-				gameManager.unitsBuilt++;
 		}
 	}
 	
@@ -73,6 +71,7 @@ public class FactoryComponent : DecoratorComponent {
 		}
 		
 		if (myTeam.MyTeam == "TeamPlayer") {
+			gameManager.unitsBuilt++;
 			var factoryCost = calculateTotalCost();
 			if (gameManager.mostExpensiveUnit < factoryCost)
 				gameManager.mostExpensiveUnit = factoryCost;

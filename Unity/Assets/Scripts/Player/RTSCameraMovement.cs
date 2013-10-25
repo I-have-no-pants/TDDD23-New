@@ -89,10 +89,7 @@ public class RTSCameraMovement : MonoBehaviour
 		} else       
 			ScrollSpeed = previousScrollSpeed;
 		
-		//ZOOM IN/OUT
-		if (Input.GetKey(KeyCode.LeftControl)) {
-			transform.Rotate(new Vector3(0,Input.GetAxis ("Zoom") * Time.deltaTime * MouseRotateSpeed,0));
-		}
+		
 		
 		if (Input.GetAxis ("Zoom Key") < 0) {
 			CurrentZoom  -= Time.deltaTime * KeyboardZoomSpeed * ZoomZpeed;
@@ -100,11 +97,18 @@ public class RTSCameraMovement : MonoBehaviour
 			CurrentZoom  += Time.deltaTime * KeyboardZoomSpeed * ZoomZpeed;
 		}
 		
-		CurrentZoom -= Input.GetAxis ("Zoom") * Time.deltaTime * 1000 * ZoomZpeed;
-       
+		//ZOOM IN/OUT
+		if (Input.GetKey(KeyCode.LeftControl)) {
+			transform.Rotate(new Vector3(0,Input.GetAxis ("Zoom") * Time.deltaTime * MouseRotateSpeed,0));
+		} else {
+			CurrentZoom -= Input.GetAxis ("Zoom") * Time.deltaTime * 1000 * ZoomZpeed;
+		}
+		
 		CurrentZoom = Mathf.Clamp (CurrentZoom, ZoomRange.x, ZoomRange.y);
        
 		transform.Translate(0,-(transform.position.y - CurrentZoom)*Time.deltaTime, 0);
+		
+		
 		//Debug.Log (transform.position.y + CurrentZoom);
 		//transform.Translate(0,CurrentZoom, 0);
 		MyCamera.transform.Rotate((-MyCamera.transform.eulerAngles.x + (InitRotation.x + CurrentZoom * ZoomRotation))*Time.deltaTime,0,0);

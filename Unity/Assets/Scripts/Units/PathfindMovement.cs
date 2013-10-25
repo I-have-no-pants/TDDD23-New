@@ -112,9 +112,9 @@ public class PathfindMovement : MonoBehaviour {
 	
 	private bool isWithinSpawnArea(Vector3 pos) {
 		if (myTeam.myTeam == "TeamPlayer")
-			return spawnPosition.z+10 > pos.z;
+			return spawnPosition.z+15 > pos.z;
 		else
-			return spawnPosition.z-10 < pos.z;
+			return spawnPosition.z-15 < pos.z;
 		
 	}
 	

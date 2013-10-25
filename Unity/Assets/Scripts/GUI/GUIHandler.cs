@@ -228,6 +228,7 @@ public class GUIHandler : MonoBehaviour {
 		if (GUI.Button(new Rect(pausePos.x-60,pausePos.y+80,100,20),"Exit to menu")) {
 			Time.timeScale = 1f;
 			Time.fixedDeltaTime = 0.02f;
+			chooseDifficulty = false;
 			Application.LoadLevel("menu");
 		}
 	}
@@ -245,20 +246,23 @@ public class GUIHandler : MonoBehaviour {
 				var decoratorComponent = g.GetComponent<DecoratorComponent>();
 				var weaponComponentTrack = g.GetComponent<WeaponComponentTrack>();
 				if (decoratorComponent != null) {
-					var weaponComponent = decoratorComponent.MyAddon.GetComponent<WeaponComponent>();
-					var addonComponent = decoratorComponent.MyAddon.GetComponent<AddonComponent>();
-					if (weaponComponent != null) {
-						content.tooltip += "\nDamage: "+weaponComponent.Damage+
-										"\nFire Rate: "+Mathf.Floor(1/weaponComponent.ReloadTime)+" / s"+
-										"\nRange: "+weaponComponent.Range;
-					}
-					if (addonComponent != null) {
-						if (addonComponent.AdditionalHealth != 0 && buildComponent.Name.CompareTo("Turret") == -1)
-							content.tooltip += "\nAdditional Health: "+addonComponent.AdditionalHealth;
+					if (decoratorComponent.MyAddon != null) {
+						var weaponComponent = decoratorComponent.MyAddon.GetComponent<WeaponComponent>();
+						var addonComponent = decoratorComponent.MyAddon.GetComponent<AddonComponent>();
+						if (weaponComponent != null) {
+							content.tooltip += "\nDamage: "+weaponComponent.Damage+
+											"\nFire Rate: "+string.Format("{0:0.##}",(1f/weaponComponent.ReloadTime))+" / s"+
+											"\nRange: "+weaponComponent.Range;
+						}
+						if (addonComponent != null) {
+							if (addonComponent.AdditionalHealth != 0)
+								content.tooltip += "\nAdditional Health: "+addonComponent.AdditionalHealth;
+						}
 					}
 				} else if (weaponComponentTrack != null) {
+						var valuev = 1.0/weaponComponentTrack.ReloadTime;
 						content.tooltip += "\nDamage: "+weaponComponentTrack.Damage+
-										"\nFire Rate: "+Mathf.Floor(1/weaponComponentTrack.ReloadTime)+" / s"+
+										"\nFire Rate: "+string.Format("{0:0.##}",valuev)+" / s"+
 										"\nRange: "+weaponComponentTrack.Range;
 					}
 				
@@ -306,7 +310,7 @@ public class GUIHandler : MonoBehaviour {
 	void drawDamageSpeed () {
 		var damagePos = new Rect(infoPos.x,infoPos.y+30, 150, 40);
 		GUI.Label(damagePos,"Maximum DPS: "+Mathf.Floor(movementComponent.dps)+
-			"\nSpeed: "+movementComponent.speed);
+			"\nMovement Speed: "+movementComponent.speed);
 	}
 	
 	void drawFactory () {
@@ -326,6 +330,7 @@ public class GUIHandler : MonoBehaviour {
 			healthComponent.Health = 0;
 			player.Money += cost;
 			//selectedUnit = null;
+			gameManager.buildingsDestroyed--;
 		}
 		GUI.Label(tooltipPos, GUI.tooltip);
 	}
